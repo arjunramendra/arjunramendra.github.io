@@ -411,12 +411,6 @@ if (canvas && ctx) {
         player.x = canvas.width / 2 - 15;
         scoreDisplay.textContent = 'Score: 0';
         gameOverlay.classList.add('hidden');
-        
-        // Show joystick on mobile
-        if (joystickContainer) {
-            joystickContainer.classList.add('active');
-        }
-        
         gameLoop();
     }
 
@@ -424,11 +418,6 @@ if (canvas && ctx) {
     function gameOver() {
         gameRunning = false;
         cancelAnimationFrame(animationId);
-        
-        // Hide joystick
-        if (joystickContainer) {
-            joystickContainer.classList.remove('active');
-        }
         
         // Show game over message
         ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
