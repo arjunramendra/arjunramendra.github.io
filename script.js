@@ -198,14 +198,6 @@ style.textContent = `
             display: none;
         }
     }
-    
-    body {
-        cursor: none;
-    }
-    
-    a, button, .project-card {
-        cursor: none;
-    }
 `;
 document.head.appendChild(style);
 
