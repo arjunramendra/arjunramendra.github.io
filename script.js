@@ -181,99 +181,55 @@ if (canvas && ctx) {
         }
     });
 
-    // Mobile button controls
-    const joystickContainer = document.querySelector('.joystick-container');
-    const joystick = document.getElementById('joystick');
-    const joystickInner = joystick ? joystick.querySelector('.joystick-inner') : null;
-
-    if (joystick && joystickInner) {
-        let joystickActive = false;
-        
-        joystick.addEventListener('touchstart', (e) => {
-            if (!gameRunning) return;
-            e.preventDefault();
-            joystickActive = true;
-        });
-        
-        joystick.addEventListener('touchmove', (e) => {
-            if (!gameRunning || !joystickActive) return;
-            e.preventDefault();
-            
-            const rect = joystick.getBoundingClientRect();
-            const centerX = rect.left + rect.width / 2;
-            const touchX = e.touches[0].clientX;
-            const diff = touchX - centerX;
-            
-            // Reset keys
-            keys.ArrowLeft = false;
-            keys.ArrowRight = false;
-            
-            // Remove previous classes
-            joystickInner.classList.remove('left', 'right');
-            
-            if (diff < -10) {
-                keys.ArrowLeft = true;
-                joystickInner.classList.add('left');
-            } else if (diff > 10) {
-                keys.ArrowRight = true;
-                joystickInner.classList.add('right');
-            }
-        });
-        
-        joystick.addEventListener('touchend', (e) => {
-            e.preventDefault();
-            joystickActive = false;
-            keys.ArrowLeft = false;
-            keys.ArrowRight = false;
-            joystickInner.classList.remove('left', 'right');
-        });
-    }
-
-    // Touch controls for swiping on canvas
-    let touchStartX = 0;
-    let currentTouchX = 0;
-    let isTouching = false;
-
+    // Touch controls - simple left/right tap zones
     canvas.addEventListener('touchstart', (e) => {
         if (!gameRunning) return;
         e.preventDefault();
-        touchStartX = e.touches[0].clientX;
-        currentTouchX = touchStartX;
-        isTouching = true;
-    });
-
-    canvas.addEventListener('touchmove', (e) => {
-        if (!gameRunning || !isTouching) return;
-        e.preventDefault();
         
-        currentTouchX = e.touches[0].clientX;
-        const diff = currentTouchX - touchStartX;
+        const rect = canvas.getBoundingClientRect();
+        const touchX = e.touches[0].clientX - rect.left;
+        const canvasWidth = canvas.width;
         
-        // Reset all keys first
+        // Reset keys
         keys.ArrowLeft = false;
         keys.ArrowRight = false;
         
-        // More sensitive controls - reduced threshold from 10 to 5
-        if (diff > 5) {
-            keys.ArrowRight = true;
-        } else if (diff < -5) {
+        // Left half = move left, right half = move right
+        if (touchX < canvasWidth / 2) {
             keys.ArrowLeft = true;
+        } else {
+            keys.ArrowRight = true;
         }
+    });
+
+    canvas.addEventListener('touchmove', (e) => {
+        if (!gameRunning) return;
+        e.preventDefault();
         
-        // Update touchStartX for continuous movement
-        touchStartX = currentTouchX;
+        const rect = canvas.getBoundingClientRect();
+        const touchX = e.touches[0].clientX - rect.left;
+        const canvasWidth = canvas.width;
+        
+        // Reset keys
+        keys.ArrowLeft = false;
+        keys.ArrowRight = false;
+        
+        // Update direction based on current touch position
+        if (touchX < canvasWidth / 2) {
+            keys.ArrowLeft = true;
+        } else {
+            keys.ArrowRight = true;
+        }
     });
 
     canvas.addEventListener('touchend', (e) => {
         e.preventDefault();
-        isTouching = false;
         keys.ArrowLeft = false;
         keys.ArrowRight = false;
     });
 
     canvas.addEventListener('touchcancel', (e) => {
         e.preventDefault();
-        isTouching = false;
         keys.ArrowLeft = false;
         keys.ArrowRight = false;
     });
