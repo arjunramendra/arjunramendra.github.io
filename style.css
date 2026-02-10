@@ -527,38 +527,58 @@ section {
     z-index: 10;
 }
 
-.mobile-controls {
+.joystick-container {
     position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 1rem;
+    bottom: 15px;
+    left: 15px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
     z-index: 10;
 }
 
-.mobile-btn {
-    width: 60px;
-    height: 60px;
-    font-size: 1.5rem;
-    background: rgba(255, 255, 255, 0.9);
-    border: 3px solid #667eea;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
+.joystick-container.active {
+    opacity: 1;
+    pointer-events: all;
 }
 
-.mobile-btn:active {
-    transform: scale(0.9);
-    background: #667eea;
-    color: white;
+.joystick {
+    width: 70px;
+    height: 70px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    position: relative;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.joystick-inner {
+    width: 35px;
+    height: 35px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid #667eea;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.1s ease;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.5);
+}
+
+.joystick-inner.left {
+    left: 25%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.joystick-inner.right {
+    left: 75%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
 @media (min-width: 769px) {
-    .mobile-controls {
+    .joystick-container {
         display: none;
     }
 }
