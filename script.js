@@ -163,11 +163,11 @@ animateCursor();
 const interactiveElements = document.querySelectorAll('a, button, .project-card');
 interactiveElements.forEach(el => {
     el.addEventListener('mouseenter', () => {
-        cursor.style.transform = 'scale(1.5)';
+        cursor.style.transform = 'scale(1.5) rotate(15deg)';
     });
     
     el.addEventListener('mouseleave', () => {
-        cursor.style.transform = 'scale(1)';
+        cursor.style.transform = 'scale(1) rotate(0deg)';
     });
 });
 
@@ -175,21 +175,36 @@ interactiveElements.forEach(el => {
 const style = document.createElement('style');
 style.textContent = `
     .custom-cursor {
-        width: 20px;
-        height: 20px;
-        border: 2px solid var(--accent-primary);
-        border-radius: 50%;
+        width: 40px;
+        height: 40px;
         position: fixed;
         pointer-events: none;
         z-index: 9999;
         transition: transform 0.2s ease;
-        mix-blend-mode: difference;
+        font-size: 32px;
+        transform-origin: center;
+    }
+    
+    .custom-cursor::before {
+        content: '🐶';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
     
     @media (max-width: 768px) {
         .custom-cursor {
             display: none;
         }
+    }
+    
+    body {
+        cursor: none;
+    }
+    
+    a, button, .project-card {
+        cursor: none;
     }
 `;
 document.head.appendChild(style);
