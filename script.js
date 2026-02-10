@@ -188,14 +188,14 @@ if (canvas && ctx) {
         
         const rect = canvas.getBoundingClientRect();
         const touchX = e.touches[0].clientX - rect.left;
-        const canvasWidth = canvas.width;
+        const renderedWidth = rect.width; // Use actual rendered width, not canvas.width
         
         // Reset keys
         keys.ArrowLeft = false;
         keys.ArrowRight = false;
         
         // Left half = move left, right half = move right
-        if (touchX < canvasWidth / 2) {
+        if (touchX < renderedWidth / 2) {
             keys.ArrowLeft = true;
         } else {
             keys.ArrowRight = true;
@@ -208,14 +208,14 @@ if (canvas && ctx) {
         
         const rect = canvas.getBoundingClientRect();
         const touchX = e.touches[0].clientX - rect.left;
-        const canvasWidth = canvas.width;
+        const renderedWidth = rect.width; // Use actual rendered width, not canvas.width
         
         // Reset keys
         keys.ArrowLeft = false;
         keys.ArrowRight = false;
         
         // Update direction based on current touch position
-        if (touchX < canvasWidth / 2) {
+        if (touchX < renderedWidth / 2) {
             keys.ArrowLeft = true;
         } else {
             keys.ArrowRight = true;
