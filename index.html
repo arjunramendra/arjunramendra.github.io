@@ -1,62 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My GitHub.io Website</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background-color: #f4f4f9;
-            color: #333;
-            text-align: center;
-            padding: 20px;
-        }
-        header {
-            background: #4CAF50;
-            color: white;
-            padding: 10px 0;
-        }
-        h1 {
-            margin: 20px 0;
-        }
-        a {
-            text-decoration: none;
-            color: #4CAF50;
-            font-weight: bold;
-        }
-        section {
-            margin: 40px 0;
-        }
-        .resume-btn {
-            padding: 10px 20px;
-            background: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-        }
-        .resume-btn:hover {
-            background: #45a049;
-        }
-    </style>
+    <title>Arjun Ramendra - Developer Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
-    <header>
-        <h1>Welcome to My GitHub.io Website</h1>
-    </header>
-    <p>Hello! This GitHub Pages site is a WIP!!</p>
-    <p>Check out my work on <a href="https://github.com/arjunramendra/Java_Practice" target="_blank">GitHub</a>.</p>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">AR</div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="sun-icon">☀️</span>
+                <span class="moon-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
 
-    <!-- Resume Section -->
-    <section>
-        <h2>My Resume</h2>
-        <p>Feel free to download my resume below:</p>
-        <a class="resume-btn" href="./resume/resume.pdf" download>Download Resume</a>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="glitch" data-text="Arjun Ramendra">Arjun Ramendra</h1>
+            <p class="hero-subtitle">Software Developer | Problem Solver | Tech Enthusiast</p>
+            <div class="hero-buttons">
+                <a href="#projects" class="btn btn-primary">View My Work</a>
+                <a href="./resume/resume.pdf" download class="btn btn-secondary">Download Resume</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll Down</span>
+            <div class="arrow-down"></div>
+        </div>
     </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>I'm a passionate software developer with a focus on creating elegant solutions to complex problems. With expertise in Java and modern web technologies, I love building applications that make a difference.</p>
+                    <div class="skills">
+                        <div class="skill-item">
+                            <span class="skill-name">Java</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">JavaScript</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Web Development</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 88%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Problem Solving</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 92%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="project-placeholder">
+                            <span class="code-symbol">&lt;/&gt;</span>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Java Practice Repository</h3>
+                        <p>A comprehensive collection of Java programming exercises, algorithms, and best practices.</p>
+                        <div class="project-tags">
+                            <span class="tag">Java</span>
+                            <span class="tag">Algorithms</span>
+                            <span class="tag">DSA</span>
+                        </div>
+                        <a href="https://github.com/arjunramendra/Java_Practice" target="_blank" class="project-link">
+                            View on GitHub →
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="project-placeholder">
+                            <span class="code-symbol">{ }</span>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Project Coming Soon</h3>
+                        <p>Currently working on exciting new projects. Stay tuned for updates!</p>
+                        <div class="project-tags">
+                            <span class="tag">In Progress</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="project-placeholder">
+                            <span class="code-symbol">[ ]</span>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Project Coming Soon</h3>
+                        <p>More exciting projects on the way. Check back later!</p>
+                        <div class="project-tags">
+                            <span class="tag">In Progress</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <p class="contact-subtitle">Have a project in mind or want to collaborate? Let's connect!</p>
+            <div class="contact-links">
+                <a href="https://github.com/arjunramendra" target="_blank" class="contact-btn">
+                    <span class="icon">📧</span> GitHub
+                </a>
+                <a href="mailto:your.email@example.com" class="contact-btn">
+                    <span class="icon">✉️</span> Email
+                </a>
+                <a href="https://linkedin.com/in/yourprofile" target="_blank" class="contact-btn">
+                    <span class="icon">💼</span> LinkedIn
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 Arjun Ramendra. Built with passion and code.</p>
+    </footer>
 </body>
 </html>
