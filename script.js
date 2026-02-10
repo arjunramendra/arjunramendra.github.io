@@ -181,28 +181,86 @@ if (canvas && ctx) {
         }
     });
 
-    // Touch controls for mobile
+    // Mobile button controls
+    const moveLeftBtn = document.getElementById('moveLeft');
+    const moveRightBtn = document.getElementById('moveRight');
+
+    if (moveLeftBtn && moveRightBtn) {
+        // Left button
+        moveLeftBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            keys.ArrowLeft = true;
+        });
+        
+        moveLeftBtn.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            keys.ArrowLeft = false;
+        });
+
+        moveLeftBtn.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            keys.ArrowLeft = true;
+        });
+        
+        moveLeftBtn.addEventListener('mouseup', (e) => {
+            e.preventDefault();
+            keys.ArrowLeft = false;
+        });
+
+        // Right button
+        moveRightBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            keys.ArrowRight = true;
+        });
+        
+        moveRightBtn.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            keys.ArrowRight = false;
+        });
+
+        moveRightBtn.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            keys.ArrowRight = true;
+        });
+        
+        moveRightBtn.addEventListener('mouseup', (e) => {
+            e.preventDefault();
+            keys.ArrowRight = false;
+        });
+    }
+
+    // Touch controls for swiping on canvas
     let touchStartX = 0;
+    let isTouching = false;
+
     canvas.addEventListener('touchstart', (e) => {
+        if (!gameRunning) return;
         touchStartX = e.touches[0].clientX;
+        isTouching = true;
     });
 
     canvas.addEventListener('touchmove', (e) => {
-        if (!gameRunning) return;
+        if (!gameRunning || !isTouching) return;
         e.preventDefault();
+        
         const touchX = e.touches[0].clientX;
         const diff = touchX - touchStartX;
         
-        if (diff > 5) {
-            player.dx = player.speed;
-        } else if (diff < -5) {
-            player.dx = -player.speed;
+        // Reset all keys first
+        keys.ArrowLeft = false;
+        keys.ArrowRight = false;
+        
+        if (diff > 10) {
+            keys.ArrowRight = true;
+        } else if (diff < -10) {
+            keys.ArrowLeft = true;
         }
-        touchStartX = touchX;
     });
 
     canvas.addEventListener('touchend', () => {
-        player.dx = 0;
+        isTouching = false;
+        keys.ArrowLeft = false;
+        keys.ArrowRight = false;
     });
 
     // Draw player
