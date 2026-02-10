@@ -182,50 +182,50 @@ if (canvas && ctx) {
     });
 
     // Mobile button controls
-    const moveLeftBtn = document.getElementById('moveLeft');
-    const moveRightBtn = document.getElementById('moveRight');
+    const joystickContainer = document.querySelector('.joystick-container');
+    const joystick = document.getElementById('joystick');
+    const joystickInner = joystick ? joystick.querySelector('.joystick-inner') : null;
 
-    if (moveLeftBtn && moveRightBtn) {
-        // Left button
-        moveLeftBtn.addEventListener('touchstart', (e) => {
+    if (joystick && joystickInner) {
+        let joystickActive = false;
+        
+        joystick.addEventListener('touchstart', (e) => {
+            if (!gameRunning) return;
             e.preventDefault();
-            keys.ArrowLeft = true;
+            joystickActive = true;
         });
         
-        moveLeftBtn.addEventListener('touchend', (e) => {
+        joystick.addEventListener('touchmove', (e) => {
+            if (!gameRunning || !joystickActive) return;
             e.preventDefault();
+            
+            const rect = joystick.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const touchX = e.touches[0].clientX;
+            const diff = touchX - centerX;
+            
+            // Reset keys
             keys.ArrowLeft = false;
-        });
-
-        moveLeftBtn.addEventListener('mousedown', (e) => {
-            e.preventDefault();
-            keys.ArrowLeft = true;
+            keys.ArrowRight = false;
+            
+            // Remove previous classes
+            joystickInner.classList.remove('left', 'right');
+            
+            if (diff < -10) {
+                keys.ArrowLeft = true;
+                joystickInner.classList.add('left');
+            } else if (diff > 10) {
+                keys.ArrowRight = true;
+                joystickInner.classList.add('right');
+            }
         });
         
-        moveLeftBtn.addEventListener('mouseup', (e) => {
+        joystick.addEventListener('touchend', (e) => {
             e.preventDefault();
+            joystickActive = false;
             keys.ArrowLeft = false;
-        });
-
-        // Right button
-        moveRightBtn.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            keys.ArrowRight = true;
-        });
-        
-        moveRightBtn.addEventListener('touchend', (e) => {
-            e.preventDefault();
             keys.ArrowRight = false;
-        });
-
-        moveRightBtn.addEventListener('mousedown', (e) => {
-            e.preventDefault();
-            keys.ArrowRight = true;
-        });
-        
-        moveRightBtn.addEventListener('mouseup', (e) => {
-            e.preventDefault();
-            keys.ArrowRight = false;
+            joystickInner.classList.remove('left', 'right');
         });
     }
 
@@ -411,6 +411,12 @@ if (canvas && ctx) {
         player.x = canvas.width / 2 - 15;
         scoreDisplay.textContent = 'Score: 0';
         gameOverlay.classList.add('hidden');
+        
+        // Show joystick on mobile
+        if (joystickContainer) {
+            joystickContainer.classList.add('active');
+        }
+        
         gameLoop();
     }
 
@@ -418,6 +424,11 @@ if (canvas && ctx) {
     function gameOver() {
         gameRunning = false;
         cancelAnimationFrame(animationId);
+        
+        // Hide joystick
+        if (joystickContainer) {
+            joystickContainer.classList.remove('active');
+        }
         
         // Show game over message
         ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
