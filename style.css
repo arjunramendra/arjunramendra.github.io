@@ -527,6 +527,42 @@ section {
     z-index: 10;
 }
 
+.mobile-controls {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 1rem;
+    z-index: 10;
+}
+
+.mobile-btn {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+    background: rgba(255, 255, 255, 0.9);
+    border: 3px solid #667eea;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.mobile-btn:active {
+    transform: scale(0.9);
+    background: #667eea;
+    color: white;
+}
+
+@media (min-width: 769px) {
+    .mobile-controls {
+        display: none;
+    }
+}
+
 /* ===== Puppy Playground Styles ===== */
 .puppy-container {
     background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
