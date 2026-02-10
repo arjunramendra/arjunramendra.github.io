@@ -163,11 +163,11 @@ animateCursor();
 const interactiveElements = document.querySelectorAll('a, button, .project-card');
 interactiveElements.forEach(el => {
     el.addEventListener('mouseenter', () => {
-        cursor.style.transform = 'scale(1.5) rotate(15deg)';
+        cursor.style.transform = 'scale(1.5)';
     });
     
     el.addEventListener('mouseleave', () => {
-        cursor.style.transform = 'scale(1) rotate(0deg)';
+        cursor.style.transform = 'scale(1)';
     });
 });
 
@@ -175,22 +175,15 @@ interactiveElements.forEach(el => {
 const style = document.createElement('style');
 style.textContent = `
     .custom-cursor {
-        width: 40px;
-        height: 40px;
+        width: 20px;
+        height: 20px;
+        border: 2px solid var(--accent-primary);
+        border-radius: 50%;
         position: fixed;
         pointer-events: none;
         z-index: 9999;
         transition: transform 0.2s ease;
-        font-size: 32px;
-        transform-origin: center;
-    }
-    
-    .custom-cursor::before {
-        content: '🐶';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        mix-blend-mode: difference;
     }
     
     @media (max-width: 768px) {
