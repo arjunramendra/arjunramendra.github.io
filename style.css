@@ -527,54 +527,6 @@ section {
     z-index: 10;
 }
 
-.joystick-container {
-    position: absolute;
-    bottom: 15px;
-    left: 15px;
-    z-index: 10;
-}
-
-.joystick {
-    width: 80px;
-    height: 80px;
-    background: rgba(0, 0, 0, 0.4);
-    border: 3px solid rgba(255, 255, 255, 0.8);
-    border-radius: 50%;
-    position: relative;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-}
-
-.joystick-inner {
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border: 3px solid #ffffff;
-    border-radius: 50%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    transition: all 0.1s ease;
-    box-shadow: 0 3px 10px rgba(102, 126, 234, 0.7);
-}
-
-.joystick-inner.left {
-    left: 30%;
-    transform: translate(-50%, -50%) scale(1.1);
-}
-
-.joystick-inner.right {
-    left: 70%;
-    transform: translate(-50%, -50%) scale(1.1);
-}
-
-@media (min-width: 769px) {
-    .joystick-container {
-        display: none;
-    }
-}
-
 /* ===== Puppy Playground Styles ===== */
 .puppy-container {
     background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
