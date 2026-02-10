@@ -231,11 +231,14 @@ if (canvas && ctx) {
 
     // Touch controls for swiping on canvas
     let touchStartX = 0;
+    let currentTouchX = 0;
     let isTouching = false;
 
     canvas.addEventListener('touchstart', (e) => {
         if (!gameRunning) return;
+        e.preventDefault();
         touchStartX = e.touches[0].clientX;
+        currentTouchX = touchStartX;
         isTouching = true;
     });
 
@@ -243,21 +246,33 @@ if (canvas && ctx) {
         if (!gameRunning || !isTouching) return;
         e.preventDefault();
         
-        const touchX = e.touches[0].clientX;
-        const diff = touchX - touchStartX;
+        currentTouchX = e.touches[0].clientX;
+        const diff = currentTouchX - touchStartX;
         
         // Reset all keys first
         keys.ArrowLeft = false;
         keys.ArrowRight = false;
         
-        if (diff > 10) {
+        // More sensitive controls - reduced threshold from 10 to 5
+        if (diff > 5) {
             keys.ArrowRight = true;
-        } else if (diff < -10) {
+        } else if (diff < -5) {
             keys.ArrowLeft = true;
         }
+        
+        // Update touchStartX for continuous movement
+        touchStartX = currentTouchX;
     });
 
-    canvas.addEventListener('touchend', () => {
+    canvas.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        isTouching = false;
+        keys.ArrowLeft = false;
+        keys.ArrowRight = false;
+    });
+
+    canvas.addEventListener('touchcancel', (e) => {
+        e.preventDefault();
         isTouching = false;
         keys.ArrowLeft = false;
         keys.ArrowRight = false;
@@ -304,9 +319,16 @@ if (canvas && ctx) {
 
     // Update player position
     function updatePlayer() {
-        if (keys.ArrowLeft || keys.a) player.dx = -player.speed;
-        else if (keys.ArrowRight || keys.d) player.dx = player.speed;
-        else player.dx = 0;
+        // Reset dx first
+        player.dx = 0;
+        
+        // Check keyboard controls
+        if (keys.ArrowLeft || keys.a) {
+            player.dx = -player.speed;
+        }
+        if (keys.ArrowRight || keys.d) {
+            player.dx = player.speed;
+        }
 
         player.x += player.dx;
 
