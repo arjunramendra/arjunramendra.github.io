@@ -1,3 +1,63 @@
+// ===== Raining Middle Fingers Effect =====
+function createRainingFingers() {
+    const fingerContainer = document.createElement('div');
+    fingerContainer.id = 'finger-rain-container';
+    fingerContainer.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 9999;
+        overflow: hidden;
+    `;
+    document.body.appendChild(fingerContainer);
+
+    function createFinger() {
+        const finger = document.createElement('div');
+        finger.textContent = '🖕';
+        finger.style.cssText = `
+            position: absolute;
+            font-size: ${Math.random() * 30 + 20}px;
+            left: ${Math.random() * 100}vw;
+            top: -50px;
+            animation: fall ${Math.random() * 3 + 2}s linear;
+            transform: rotate(${Math.random() * 360}deg);
+            opacity: ${Math.random() * 0.5 + 0.5};
+        `;
+        
+        fingerContainer.appendChild(finger);
+        
+        // Remove finger after animation
+        setTimeout(() => {
+            finger.remove();
+        }, 5000);
+    }
+
+    // Create initial burst
+    for (let i = 0; i < 50; i++) {
+        setTimeout(() => createFinger(), i * 100);
+    }
+
+    // Continue creating fingers for 10 seconds
+    const interval = setInterval(createFinger, 200);
+    setTimeout(() => {
+        clearInterval(interval);
+        // Fade out and remove container after 15 seconds
+        setTimeout(() => {
+            fingerContainer.style.transition = 'opacity 1s';
+            fingerContainer.style.opacity = '0';
+            setTimeout(() => fingerContainer.remove(), 1000);
+        }, 5000);
+    }, 10000);
+}
+
+// Start the effect when page loads
+window.addEventListener('load', () => {
+    setTimeout(createRainingFingers, 500);
+});
+
 // Theme Toggle Functionality
 const themeToggle = document.getElementById("themeToggle");
 const body = document.body;
