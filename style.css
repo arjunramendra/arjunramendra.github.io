@@ -674,6 +674,20 @@ section {
     }
 }
 
+
+/* ===== Raining Middle Fingers Animation ===== */
+@keyframes fall {
+    0% {
+        top: -50px;
+        opacity: 1;
+    }
+    100% {
+        top: 100vh;
+        opacity: 0.3;
+    }
+}
+
+
 @keyframes slideInRight {
     from {
         opacity: 0;
