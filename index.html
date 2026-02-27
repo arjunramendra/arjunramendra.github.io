@@ -11,7 +11,7 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="logo-wrap" tabindex="0" aria-label="Profile quick card">
+            <div class="logo-wrap" tabindex="0" aria-label="Profile quick card" aria-expanded="false">
                 <div class="logo">AR</div>
                 <div class="logo-popup" role="dialog" aria-label="Arjun Ramendra profile card">
                     <img
@@ -22,9 +22,11 @@
                     >
                     <div class="logo-popup-content">
                         <p class="logo-popup-name">Arjun Ramendra</p>
-                        <p class="logo-popup-line">Email: ramendraarjun@gmail.com</p>
-                        <p class="logo-popup-line">Phone: +91 8754405705</p>
-                        <p class="logo-popup-line">Work: Senior Software Engineer, Straumann Group</p>
+                        <p class="logo-popup-status"><span class="status-dot"></span>Available for collaboration</p>
+                        <hr class="logo-popup-divider">
+                        <p class="logo-popup-line copyable-field" data-copy="ramendraarjun@gmail.com">Email: ramendraarjun@gmail.com</p>
+                        <p class="logo-popup-line copyable-field" data-copy="+91 8754405705">Phone: +91 8754405705</p>
+                        <p class="logo-popup-line copyable-field" data-copy="Senior Software Engineer, Straumann Group">Work: Senior Software Engineer, Straumann Group</p>
                     </div>
                 </div>
             </div>
@@ -101,9 +103,17 @@
             <h2 class="section-title">Featured Projects</h2>
             <div class="projects-grid">
                 <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-placeholder">
-                            <span class="code-symbol">&lt;/&gt;</span>
+                    <div class="project-image repo-preview">
+                        <div class="repo-preview-window">
+                            <div class="repo-preview-header">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <div class="repo-preview-lines">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
                         </div>
                     </div>
                     <div class="project-info">
@@ -177,7 +187,11 @@
                     </span> GitHub
                 </a>
                 <a href="mailto:ramendraarjun@gmail.com" class="contact-btn">
-                    <span class="icon">✉️</span> Email
+                    <span class="icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" role="img" focusable="false">
+                            <path d="M2 5.5A2.5 2.5 0 0 1 4.5 3h15A2.5 2.5 0 0 1 22 5.5v13a2.5 2.5 0 0 1-2.5 2.5h-15A2.5 2.5 0 0 1 2 18.5v-13Zm2.2.3 7.8 5.8 7.8-5.8H4.2Zm15.8 2.47-7.4 5.5a1 1 0 0 1-1.2 0L4 8.27V18.5c0 .28.22.5.5.5h15a.5.5 0 0 0 .5-.5V8.27Z"></path>
+                        </svg>
+                    </span> Email
                 </a>
                 <a href="https://www.linkedin.com/in/arjunramendra" target="_blank" class="contact-btn">
                     <span class="icon">💼</span> LinkedIn
