@@ -32,24 +32,110 @@ if (resumeAction) {
     });
 }
 
+// Profile popup copy actions
+const copyableFields = document.querySelectorAll(".copyable-field");
+copyableFields.forEach((field) => {
+    field.addEventListener("click", async () => {
+        const text = field.dataset.copy;
+        if (!text) return;
+
+        try {
+            await navigator.clipboard.writeText(text);
+        } catch {
+            const helper = document.createElement("textarea");
+            helper.value = text;
+            document.body.appendChild(helper);
+            helper.select();
+            document.execCommand("copy");
+            helper.remove();
+        }
+
+        field.classList.add("copied");
+        setTimeout(() => {
+            field.classList.remove("copied");
+        }, 700);
+
+    });
+});
+
+// Ensure popup closes after pointer leaves, even after click-induced focus.
+const logoWrap = document.querySelector(".logo-wrap");
+if (logoWrap) {
+    logoWrap.addEventListener("mouseleave", () => {
+        const active = document.activeElement;
+        if (active && logoWrap.contains(active) && typeof active.blur === "function") {
+            active.blur();
+        }
+    });
+}
+
+// Mobile/touch behavior for AR popup: tap to open/close, tap outside to close.
+const touchMediaQuery = window.matchMedia("(hover: none), (pointer: coarse)");
+if (logoWrap) {
+    const setLogoPopupOpen = (isOpen) => {
+        logoWrap.classList.toggle("is-open", isOpen);
+        logoWrap.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    };
+
+    logoWrap.addEventListener("click", (e) => {
+        if (!touchMediaQuery.matches) return;
+        if (e.target.closest(".copyable-field")) return;
+
+        e.preventDefault();
+        setLogoPopupOpen(!logoWrap.classList.contains("is-open"));
+    });
+
+    document.addEventListener("click", (e) => {
+        if (!touchMediaQuery.matches) return;
+        if (logoWrap.contains(e.target)) return;
+        setLogoPopupOpen(false);
+    });
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+            setLogoPopupOpen(false);
+        }
+    });
+
+    window.addEventListener("resize", () => {
+        if (!touchMediaQuery.matches) {
+            setLogoPopupOpen(false);
+        }
+    });
+}
+
 // Scroll-driven effects
 const navbar = document.querySelector('.navbar');
 const heroContent = document.querySelector('.hero-content');
+const sectionAnchors = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
 let scrollTicking = false;
 
 function updateOnScroll() {
     const currentScroll = window.pageYOffset;
 
     if (navbar) {
-        navbar.style.boxShadow = currentScroll > 50
-            ? '0 4px 20px rgba(0, 0, 0, 0.1)'
-            : '0 4px 6px rgba(0, 0, 0, 0.1)';
+        navbar.classList.toggle('is-scrolled', currentScroll > 24);
     }
 
     if (heroContent) {
         heroContent.style.transform = `translateY(${currentScroll * 0.5}px)`;
         heroContent.style.opacity = String(Math.max(0, 1 - (currentScroll / 600)));
     }
+
+    let activeId = '';
+    const navOffset = 120;
+    sectionAnchors.forEach((section) => {
+        const top = section.offsetTop - navOffset;
+        const bottom = top + section.offsetHeight;
+        if (currentScroll >= top && currentScroll < bottom) {
+            activeId = section.id;
+        }
+    });
+    navLinks.forEach((link) => {
+        const href = link.getAttribute('href');
+        link.classList.toggle('active', href === `#${activeId}`);
+    });
 
     scrollTicking = false;
 }
@@ -79,12 +165,18 @@ const observer = new IntersectionObserver((entries) => {
 
 // Observe all sections and cards
 document.addEventListener('DOMContentLoaded', () => {
+    // Prevent refresh from sticking to a previous hash section like #projects.
+    if (window.location.hash) {
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+        window.scrollTo({ top: 0, behavior: 'auto' });
+    }
+
     // Animate sections
     const sections = document.querySelectorAll('section');
     sections.forEach(section => {
         section.style.opacity = '0';
         section.style.transform = 'translateY(30px)';
-        section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        section.style.transition = 'opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1)';
         observer.observe(section);
     });
     
@@ -93,7 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
     cards.forEach((card, index) => {
         card.style.opacity = '0';
         card.style.transform = 'translateY(30px)';
-        card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+        card.style.transition = `opacity 0.6s cubic-bezier(0.22,1,0.36,1) ${index * 0.1}s, transform 0.6s cubic-bezier(0.22,1,0.36,1) ${index * 0.1}s`;
         observer.observe(card);
     });
     
