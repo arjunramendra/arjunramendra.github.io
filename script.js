@@ -60,6 +60,26 @@ copyableFields.forEach((field) => {
 
 // Ensure popup closes after pointer leaves, even after click-induced focus.
 const logoWrap = document.querySelector(".logo-wrap");
+const logoPopup = document.querySelector(".logo-popup");
+
+function adjustLogoPopupPosition() {
+    if (!logoWrap || !logoPopup) return;
+
+    logoWrap.style.setProperty("--popup-shift-x", "0px");
+    const rect = logoPopup.getBoundingClientRect();
+    const viewportPadding = 8;
+    let shift = 0;
+
+    if (rect.right > window.innerWidth - viewportPadding) {
+        shift -= rect.right - (window.innerWidth - viewportPadding);
+    }
+    if (rect.left + shift < viewportPadding) {
+        shift += viewportPadding - (rect.left + shift);
+    }
+
+    logoWrap.style.setProperty("--popup-shift-x", `${Math.round(shift)}px`);
+}
+
 if (logoWrap) {
     logoWrap.addEventListener("mouseleave", () => {
         const active = document.activeElement;
@@ -67,6 +87,8 @@ if (logoWrap) {
             active.blur();
         }
     });
+    logoWrap.addEventListener("mouseenter", adjustLogoPopupPosition);
+    logoWrap.addEventListener("focusin", adjustLogoPopupPosition);
 }
 
 // Mobile/touch behavior for AR popup: tap to open/close, tap outside to close.
@@ -75,6 +97,14 @@ if (logoWrap) {
     const setLogoPopupOpen = (isOpen) => {
         logoWrap.classList.toggle("is-open", isOpen);
         logoWrap.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        if (isOpen) {
+            adjustLogoPopupPosition();
+        } else {
+            const active = document.activeElement;
+            if (active && logoWrap.contains(active) && typeof active.blur === "function") {
+                active.blur();
+            }
+        }
     };
 
     logoWrap.addEventListener("click", (e) => {
@@ -82,6 +112,7 @@ if (logoWrap) {
         if (e.target.closest(".copyable-field")) return;
 
         e.preventDefault();
+        e.stopPropagation();
         setLogoPopupOpen(!logoWrap.classList.contains("is-open"));
     });
 
@@ -100,6 +131,7 @@ if (logoWrap) {
     window.addEventListener("resize", () => {
         if (!touchMediaQuery.matches) {
             setLogoPopupOpen(false);
+            adjustLogoPopupPosition();
         }
     });
 }
