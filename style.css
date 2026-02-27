@@ -85,6 +85,71 @@ body {
     background-clip: text;
 }
 
+.logo-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    outline: none;
+}
+
+.logo-popup {
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 50%;
+    transform: translate(-50%, -10px);
+    min-width: 300px;
+    padding: 0.85rem;
+    border-radius: 14px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+    box-shadow: 0 14px 28px rgba(15, 23, 42, 0.12);
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 1200;
+}
+
+.logo-wrap:hover .logo-popup,
+.logo-wrap:focus-within .logo-popup {
+    opacity: 1;
+    transform: translate(-50%, 0);
+    pointer-events: auto;
+}
+
+.logo-popup-photo {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: 50% 28%;
+    transform: scale(1.28);
+    border: 1px solid var(--border-color);
+    flex-shrink: 0;
+}
+
+.logo-popup-content {
+    display: grid;
+    gap: 0.14rem;
+}
+
+.logo-popup-name {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--text-primary);
+}
+
+.logo-popup-line {
+    margin: 0;
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+}
+
 .nav-menu {
     display: flex;
     list-style: none;
@@ -293,6 +358,7 @@ body {
 /* ===== Section Styles ===== */
 section {
     padding: 5rem 2rem;
+    scroll-margin-top: 90px;
 }
 
 .section-title {
@@ -349,15 +415,11 @@ section {
 }
 
 .skill-progress {
+    width: 0;
     height: 100%;
     background: var(--accent-gradient);
     border-radius: 10px;
     transition: width 1s ease-out;
-    animation: fillBar 1.5s ease-out;
-}
-
-@keyframes fillBar {
-    from { width: 0; }
 }
 
 /* ===== Projects Section ===== */
@@ -632,6 +694,15 @@ section {
 
 .icon {
     font-size: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    fill: currentColor;
 }
 
 /* ===== Footer ===== */
@@ -647,6 +718,17 @@ section {
 @media (max-width: 768px) {
     .nav-menu {
         display: none;
+    }
+
+    .logo-popup {
+        min-width: 250px;
+        left: 0;
+        transform: translate(0, -10px);
+    }
+
+    .logo-wrap:hover .logo-popup,
+    .logo-wrap:focus-within .logo-popup {
+        transform: translate(0, 0);
     }
     
     .hero {

@@ -10,48 +10,59 @@ if (currentTheme === "dark") {
 
 themeToggle.addEventListener("click", () => {
     body.classList.toggle("dark-mode");
-    
+
     // Save theme preference
     const theme = body.classList.contains("dark-mode") ? "dark" : "light";
     localStorage.setItem("theme", theme);
 });
 
-// Smooth Scroll for Navigation Links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        
-        if (target) {
-            const navHeight = document.querySelector('.navbar').offsetHeight;
-            const targetPosition = target.offsetTop - navHeight;
-            
-            window.scrollTo({
-                top: targetPosition,
-                behavior: 'smooth'
-            });
-        }
-    });
-});
+// Resume button: normal click opens PDF, Shift+Click downloads it.
+const resumeAction = document.getElementById("resumeAction");
+if (resumeAction) {
+    resumeAction.addEventListener("click", (e) => {
+        if (!e.shiftKey) return;
 
-// Navbar scroll effect
+        e.preventDefault();
+        const tempLink = document.createElement("a");
+        tempLink.href = resumeAction.getAttribute("href");
+        tempLink.download = "Arjun_Ramendra_Resume.pdf";
+        document.body.appendChild(tempLink);
+        tempLink.click();
+        tempLink.remove();
+    });
+}
+
+// Scroll-driven effects
 const navbar = document.querySelector('.navbar');
-let lastScroll = 0;
+const heroContent = document.querySelector('.hero-content');
+let scrollTicking = false;
+
+function updateOnScroll() {
+    const currentScroll = window.pageYOffset;
+
+    if (navbar) {
+        navbar.style.boxShadow = currentScroll > 50
+            ? '0 4px 20px rgba(0, 0, 0, 0.1)'
+            : '0 4px 6px rgba(0, 0, 0, 0.1)';
+    }
+
+    if (heroContent) {
+        heroContent.style.transform = `translateY(${currentScroll * 0.5}px)`;
+        heroContent.style.opacity = String(Math.max(0, 1 - (currentScroll / 600)));
+    }
+
+    scrollTicking = false;
+}
 
 window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
-    
-    // Add shadow on scroll
-    if (currentScroll > 50) {
-        navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
-    } else {
-        navbar.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+    if (!scrollTicking) {
+        requestAnimationFrame(updateOnScroll);
+        scrollTicking = true;
     }
-    
-    lastScroll = currentScroll;
-});
+}, { passive: true });
+updateOnScroll();
 
-// Intersection Observer for Animations
+// Intersection Observer for animations
 const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -100px 0px'
@@ -91,12 +102,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const skillObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style.width = entry.target.style.width || '0%';
+                const targetWidth = entry.target.dataset.width || '0%';
+                entry.target.style.width = targetWidth;
+                skillObserver.unobserve(entry.target);
             }
         });
     }, { threshold: 0.5 });
     
     skillBars.forEach(bar => {
+        bar.style.width = '0%';
         skillObserver.observe(bar);
     });
 });
@@ -119,17 +133,6 @@ if (heroSubtitle) {
     // Start typing after page loads
     setTimeout(typeWriter, 1000);
 }
-
-// Parallax effect for hero section
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const heroContent = document.querySelector('.hero-content');
-    
-    if (heroContent) {
-        heroContent.style.transform = `translateY(${scrolled * 0.5}px)`;
-        heroContent.style.opacity = 1 - (scrolled / 600);
-    }
-});
 
 // Custom cursor removed for better usability
 
@@ -297,7 +300,8 @@ if (canvas && ctx) {
 
     // Update obstacles
     function updateObstacles() {
-        obstacles.forEach((obs, index) => {
+        for (let index = obstacles.length - 1; index >= 0; index--) {
+            const obs = obstacles[index];
             obs.y += obs.speed;
 
             // Remove obstacles that are off screen
@@ -310,6 +314,7 @@ if (canvas && ctx) {
                 if (score % 100 === 0) {
                     gameSpeed += 0.5;
                 }
+                continue;
             }
 
             // Collision detection
@@ -320,8 +325,10 @@ if (canvas && ctx) {
                 player.y + player.height > obs.y
             ) {
                 gameOver();
+                return true;
             }
-        });
+        }
+        return false;
     }
 
     // Clear canvas
@@ -348,7 +355,8 @@ if (canvas && ctx) {
         drawPlayer();
         drawObstacles();
         updatePlayer();
-        updateObstacles();
+        const collided = updateObstacles();
+        if (collided || !gameRunning) return;
 
         // Randomly create obstacles
         if (Math.random() < 0.02) {
@@ -417,6 +425,8 @@ const moodDisplay = document.getElementById('puppyMood');
 
 if (puppyCanvas && puppyCtx) {
     let puppyAnimationId;
+    let puppyRunning = false;
+    let puppyVisible = true;
     
     // Puppy object
     const puppy = {
@@ -632,6 +642,8 @@ if (puppyCanvas && puppyCtx) {
 
     // Animation loop
     function puppyLoop() {
+        if (!puppyRunning) return;
+
         drawBackground();
         updatePuppy();
         updateParticles();
@@ -639,6 +651,16 @@ if (puppyCanvas && puppyCtx) {
         drawParticles();
         
         puppyAnimationId = requestAnimationFrame(puppyLoop);
+    }
+
+    function setPuppyRunning(shouldRun) {
+        if (shouldRun && !puppyRunning) {
+            puppyRunning = true;
+            puppyAnimationId = requestAnimationFrame(puppyLoop);
+        } else if (!shouldRun && puppyRunning) {
+            puppyRunning = false;
+            cancelAnimationFrame(puppyAnimationId);
+        }
     }
 
     // Canvas click handler
@@ -696,8 +718,21 @@ if (puppyCanvas && puppyCtx) {
         }, 50);
     });
 
+    // Pause animation when canvas is out of view or tab is hidden
+    const puppyVisibilityObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            puppyVisible = entry.isIntersecting;
+            setPuppyRunning(puppyVisible && !document.hidden);
+        });
+    }, { threshold: 0.05 });
+
+    puppyVisibilityObserver.observe(puppyCanvas);
+    document.addEventListener('visibilitychange', () => {
+        setPuppyRunning(puppyVisible && !document.hidden);
+    });
+
     // Start animation
-    puppyLoop();
+    setPuppyRunning(!document.hidden);
 }
 
 console.log('Portfolio loaded successfully! 🚀');
