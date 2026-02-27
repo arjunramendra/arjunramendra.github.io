@@ -11,7 +11,23 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="logo">AR</div>
+            <div class="logo-wrap" tabindex="0" aria-label="Profile quick card">
+                <div class="logo">AR</div>
+                <div class="logo-popup" role="dialog" aria-label="Arjun Ramendra profile card">
+                    <img
+                        class="logo-popup-photo"
+                        src="./assets/images/profile-photo.jpg"
+                        onerror="this.onerror=null;this.src='https://github.com/arjunramendra1.png';"
+                        alt="Arjun Ramendra profile photo"
+                    >
+                    <div class="logo-popup-content">
+                        <p class="logo-popup-name">Arjun Ramendra</p>
+                        <p class="logo-popup-line">Email: ramendraarjun@gmail.com</p>
+                        <p class="logo-popup-line">Phone: +91 8754405705</p>
+                        <p class="logo-popup-line">Work: Senior Software Engineer, Straumann Group</p>
+                    </div>
+                </div>
+            </div>
             <ul class="nav-menu">
                 <li><a href="#home" class="nav-link">Home</a></li>
                 <li><a href="#about" class="nav-link">About</a></li>
