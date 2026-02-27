@@ -125,7 +125,8 @@ body {
     top: calc(100% + 12px);
     left: 50%;
     transform: translate(-50%, -10px);
-    min-width: 300px;
+    width: min(320px, calc(100vw - 24px));
+    min-width: 0;
     padding: 0.85rem;
     border-radius: 14px;
     border: 1px solid var(--border-color);
@@ -859,15 +860,14 @@ section {
     }
 
     .logo-popup {
-        min-width: 250px;
-        left: 0;
-        transform: translate(0, -10px);
+        left: 50%;
+        transform: translate(-50%, -10px);
     }
 
     .logo-wrap:hover .logo-popup,
     .logo-wrap:focus-within .logo-popup,
     .logo-wrap.is-open .logo-popup {
-        transform: translate(0, 0);
+        transform: translate(-50%, 0);
     }
     
     .hero {
