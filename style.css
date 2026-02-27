@@ -105,12 +105,14 @@ body {
 
 .logo-wrap::after {
     content: '';
+    display: inline-block;
     width: 0.38rem;
     height: 0.38rem;
     border-right: 1.5px solid var(--text-secondary);
     border-bottom: 1.5px solid var(--text-secondary);
     transform: translateY(-1px) rotate(45deg);
     transition: transform var(--motion-fast) var(--ease-smooth), border-color var(--motion-fast) var(--ease-smooth);
+    flex-shrink: 0;
 }
 
 .logo-wrap:hover::after,
@@ -123,8 +125,8 @@ body {
 .logo-popup {
     position: absolute;
     top: calc(100% + 12px);
-    left: 50%;
-    transform: translate(-50%, -10px);
+    left: 0;
+    transform: translateY(-10px);
     width: min(320px, calc(100vw - 24px));
     min-width: 0;
     padding: 0.85rem;
@@ -139,6 +141,9 @@ body {
     pointer-events: none;
     transition: opacity var(--motion-fast) var(--ease-smooth), transform var(--motion-fast) var(--ease-smooth);
     z-index: 1200;
+    font-family: inherit;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
 }
 
 .logo-popup::before {
@@ -154,7 +159,7 @@ body {
 .logo-wrap:focus-within .logo-popup,
 .logo-wrap.is-open .logo-popup {
     opacity: 1;
-    transform: translate(-50%, 0);
+    transform: translateY(0);
     pointer-events: auto;
 }
 
@@ -192,10 +197,12 @@ body {
 }
 
 .status-dot {
+    display: inline-block;
     width: 0.45rem;
     height: 0.45rem;
     border-radius: 50%;
     background: #22c55e;
+    flex-shrink: 0;
 }
 
 .logo-popup-divider {
@@ -207,6 +214,7 @@ body {
 .logo-popup-line {
     margin: 0;
     font-size: 0.78rem;
+    line-height: 1.35;
     color: var(--text-secondary);
     user-select: text;
 }
@@ -860,14 +868,14 @@ section {
     }
 
     .logo-popup {
-        left: 50%;
-        transform: translate(-50%, -10px);
+        left: 0;
+        transform: translateY(-10px);
     }
 
     .logo-wrap:hover .logo-popup,
     .logo-wrap:focus-within .logo-popup,
     .logo-wrap.is-open .logo-popup {
-        transform: translate(-50%, 0);
+        transform: translateY(0);
     }
     
     .hero {
