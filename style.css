@@ -126,7 +126,7 @@ body {
     position: absolute;
     top: calc(100% + 12px);
     left: 0;
-    transform: translateY(-10px);
+    transform: translateX(var(--popup-shift-x, 0px)) translateY(-10px);
     width: min(320px, calc(100vw - 24px));
     min-width: 0;
     padding: 0.85rem;
@@ -159,7 +159,7 @@ body {
 .logo-wrap:focus-within .logo-popup,
 .logo-wrap.is-open .logo-popup {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(var(--popup-shift-x, 0px)) translateY(0);
     pointer-events: auto;
 }
 
@@ -869,13 +869,13 @@ section {
 
     .logo-popup {
         left: 0;
-        transform: translateY(-10px);
+        transform: translateX(var(--popup-shift-x, 0px)) translateY(-10px);
     }
 
     .logo-wrap:hover .logo-popup,
     .logo-wrap:focus-within .logo-popup,
     .logo-wrap.is-open .logo-popup {
-        transform: translateY(0);
+        transform: translateX(var(--popup-shift-x, 0px)) translateY(0);
     }
     
     .hero {
