@@ -891,6 +891,33 @@ section {
     }
 }
 
+/* On touch devices, drive popup visibility only via .is-open */
+@media (hover: none), (pointer: coarse) {
+    .logo-wrap:hover .logo-popup,
+    .logo-wrap:focus-within .logo-popup {
+        opacity: 0;
+        pointer-events: none;
+        transform: translateX(var(--popup-shift-x, 0px)) translateY(-10px);
+    }
+
+    .logo-wrap.is-open .logo-popup {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateX(var(--popup-shift-x, 0px)) translateY(0);
+    }
+
+    .logo-wrap:hover::after,
+    .logo-wrap:focus-within::after {
+        border-color: var(--text-secondary);
+        transform: translateY(-1px) rotate(45deg);
+    }
+
+    .logo-wrap.is-open::after {
+        border-color: var(--text-primary);
+        transform: translateY(1px) rotate(-135deg);
+    }
+}
+
 /* ===== Animations ===== */
 @keyframes slideInLeft {
     from {
