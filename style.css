@@ -365,13 +365,23 @@ body {
     color: var(--text-primary);
     text-decoration: none;
     font-weight: 500;
+    letter-spacing: 0.01em;
     border-radius: 8px;
-    transition: background var(--motion-fast) var(--ease-smooth), color var(--motion-fast) var(--ease-smooth);
+    border-left: 2px solid transparent;
+    transition: background var(--motion-fast) var(--ease-smooth),
+                color var(--motion-fast) var(--ease-smooth),
+                border-color var(--motion-fast) var(--ease-smooth);
 }
 
 .mobile-nav-link:hover {
     background: color-mix(in srgb, var(--accent-primary) 10%, transparent);
     color: var(--accent-primary);
+}
+
+.mobile-nav-link.active {
+    color: var(--accent-primary);
+    border-left-color: var(--accent-primary);
+    background: color-mix(in srgb, var(--accent-primary) 8%, transparent);
 }
 
 /* ===== Hero Section ===== */
@@ -947,11 +957,20 @@ section {
         transition: grid-template-rows var(--motion-medium) var(--ease-smooth);
     }
 
-    /* Padding on the grid item itself prevents true 0-height collapse —
-       zero it out here; each .mobile-nav-link has its own padding */
+    /* Only horizontal padding here — vertical padding on the grid item
+       prevents true 0-height collapse */
     .mobile-menu > ul {
         min-height: 0;
-        padding: 0;
+        padding: 0 0.75rem;
+    }
+
+    /* Breathing room at top and bottom of the open menu */
+    .mobile-nav-links li:first-child .mobile-nav-link {
+        margin-top: 0.35rem;
+    }
+
+    .mobile-nav-links li:last-child .mobile-nav-link {
+        margin-bottom: 0.35rem;
     }
 
     .mobile-menu.is-open {
