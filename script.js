@@ -150,32 +150,45 @@ const heroContent = document.querySelector('.hero-content');
 const sectionAnchors = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('.nav-link');
 let scrollTicking = false;
+const mobilePerfQuery = window.matchMedia("(max-width: 768px)");
+
+function isMobilePerfMode() {
+    return mobilePerfQuery.matches;
+}
 
 function updateOnScroll() {
     const currentScroll = window.pageYOffset;
+    const mobileMode = isMobilePerfMode();
 
     if (navbar) {
         navbar.classList.toggle('is-scrolled', currentScroll > 24);
     }
 
     if (heroContent) {
-        heroContent.style.transform = `translateY(${currentScroll * 0.5}px)`;
-        heroContent.style.opacity = String(Math.max(0, 1 - (currentScroll / 600)));
+        if (mobileMode) {
+            heroContent.style.transform = 'none';
+            heroContent.style.opacity = '1';
+        } else {
+            heroContent.style.transform = `translateY(${currentScroll * 0.5}px)`;
+            heroContent.style.opacity = String(Math.max(0, 1 - (currentScroll / 600)));
+        }
     }
 
-    let activeId = '';
-    const navOffset = 120;
-    sectionAnchors.forEach((section) => {
-        const top = section.offsetTop - navOffset;
-        const bottom = top + section.offsetHeight;
-        if (currentScroll >= top && currentScroll < bottom) {
-            activeId = section.id;
-        }
-    });
-    navLinks.forEach((link) => {
-        const href = link.getAttribute('href');
-        link.classList.toggle('active', href === `#${activeId}`);
-    });
+    if (!mobileMode) {
+        let activeId = '';
+        const navOffset = 120;
+        sectionAnchors.forEach((section) => {
+            const top = section.offsetTop - navOffset;
+            const bottom = top + section.offsetHeight;
+            if (currentScroll >= top && currentScroll < bottom) {
+                activeId = section.id;
+            }
+        });
+        navLinks.forEach((link) => {
+            const href = link.getAttribute('href');
+            link.classList.toggle('active', href === `#${activeId}`);
+        });
+    }
 
     scrollTicking = false;
 }
@@ -211,12 +224,16 @@ document.addEventListener('DOMContentLoaded', () => {
         window.scrollTo({ top: 0, behavior: 'auto' });
     }
 
+    const mobileMode = isMobilePerfMode();
+
     // Animate sections
     const sections = document.querySelectorAll('section');
     sections.forEach(section => {
         section.style.opacity = '0';
-        section.style.transform = 'translateY(30px)';
-        section.style.transition = 'opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1)';
+        section.style.transform = mobileMode ? 'translateY(12px)' : 'translateY(30px)';
+        section.style.transition = mobileMode
+            ? 'opacity 0.35s ease-out, transform 0.35s ease-out'
+            : 'opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1)';
         observer.observe(section);
     });
     
@@ -224,8 +241,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const cards = document.querySelectorAll('.project-card');
     cards.forEach((card, index) => {
         card.style.opacity = '0';
-        card.style.transform = 'translateY(30px)';
-        card.style.transition = `opacity 0.6s cubic-bezier(0.22,1,0.36,1) ${index * 0.1}s, transform 0.6s cubic-bezier(0.22,1,0.36,1) ${index * 0.1}s`;
+        card.style.transform = mobileMode ? 'translateY(10px)' : 'translateY(30px)';
+        const delay = mobileMode ? 0 : index * 0.1;
+        card.style.transition = mobileMode
+            ? `opacity 0.35s ease-out ${delay}s, transform 0.35s ease-out ${delay}s`
+            : `opacity 0.6s cubic-bezier(0.22,1,0.36,1) ${delay}s, transform 0.6s cubic-bezier(0.22,1,0.36,1) ${delay}s`;
         observer.observe(card);
     });
     
