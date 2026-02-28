@@ -94,6 +94,8 @@ if (logoWrap) {
 // Mobile/touch behavior for AR popup: tap to open/close, tap outside to close.
 const touchMediaQuery = window.matchMedia("(hover: none), (pointer: coarse)");
 if (logoWrap) {
+    const isLogoPopupOpen = () => logoWrap.classList.contains("is-open");
+
     const setLogoPopupOpen = (isOpen) => {
         logoWrap.classList.toggle("is-open", isOpen);
         logoWrap.setAttribute("aria-expanded", isOpen ? "true" : "false");
@@ -113,7 +115,7 @@ if (logoWrap) {
 
         e.preventDefault();
         e.stopPropagation();
-        setLogoPopupOpen(!logoWrap.classList.contains("is-open"));
+        setLogoPopupOpen(!isLogoPopupOpen());
     });
 
     document.addEventListener("click", (e) => {
@@ -134,6 +136,12 @@ if (logoWrap) {
             adjustLogoPopupPosition();
         }
     });
+
+    window.addEventListener("scroll", () => {
+        if (touchMediaQuery.matches && isLogoPopupOpen()) {
+            setLogoPopupOpen(false);
+        }
+    }, { passive: true });
 }
 
 // Scroll-driven effects
