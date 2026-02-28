@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arjun Ramendra - Developer Portfolio</title>
+    <meta name="description" content="Arjun Ramendra's developer portfolio — Senior Software Engineer at Straumann Group specialising in Java, DevOps, and modern web development.">
+    <meta property="og:title" content="Arjun Ramendra — Developer Portfolio">
+    <meta property="og:description" content="Senior Software Engineer specialising in Java, DevOps, and web development.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://arjunramendra.github.io">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Arjun Ramendra — Developer Portfolio">
+    <meta name="twitter:description" content="Senior Software Engineer specialising in Java, DevOps, and web development.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%236366f1'/><text x='16' y='22' font-family='Arial' font-weight='bold' font-size='14' fill='white' text-anchor='middle'>AR</text></svg>">
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
@@ -35,169 +44,191 @@
                 <li><a href="#projects" class="nav-link">Projects</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
-            <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
-                <span class="sun-icon">☀️</span>
-                <span class="moon-icon">🌙</span>
-            </button>
+            <div class="nav-controls">
+                <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+                    <span class="sun-icon">☀️</span>
+                    <span class="moon-icon">🌙</span>
+                </button>
+                <button id="navToggle" class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile menu (inside nav so it sits flush below the bar) -->
+        <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+            <ul class="mobile-nav-links">
+                <li><a href="#home" class="mobile-nav-link">Home</a></li>
+                <li><a href="#about" class="mobile-nav-link">About</a></li>
+                <li><a href="#projects" class="mobile-nav-link">Projects</a></li>
+                <li><a href="#contact" class="mobile-nav-link">Contact</a></li>
+            </ul>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1 class="glitch" data-text="Arjun Ramendra">Arjun Ramendra</h1>
-            <p class="hero-subtitle">Software Developer | Problem Solver | Tech Enthusiast</p>
-            <div class="hero-buttons">
-                <a href="#projects" class="btn btn-primary">View My Work</a>
-                <a id="resumeAction" href="./resume/resume.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" title="Click to view. Shift+Click to download." aria-label="Resume: click to view, shift click to download">Download Resume</a>
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1 class="glitch" data-text="Arjun Ramendra">Arjun Ramendra</h1>
+                <p class="hero-subtitle">Software Developer | Problem Solver | Tech Enthusiast</p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary">View My Work</a>
+                    <a id="resumeAction" href="./resume/resume.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" title="Click to view. Shift+Click to download." aria-label="Resume: click to view, shift click to download">View Resume</a>
+                </div>
             </div>
-        </div>
-        <div class="scroll-indicator">
-            <span>Scroll Down</span>
-            <div class="arrow-down"></div>
-        </div>
-    </section>
+            <div class="scroll-indicator">
+                <span>Scroll Down</span>
+                <div class="arrow-down"></div>
+            </div>
+        </section>
 
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <h2 class="section-title">About Me</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>I'm a passionate software developer with a focus on creating elegant solutions to complex problems. With expertise in Java and modern web technologies, I love building applications that make a difference.</p>
-                    <div class="skills">
-                        <div class="skill-item">
-                            <span class="skill-name">Java</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="90%"></div>
+        <!-- About Section -->
+        <section id="about" class="about">
+            <div class="container">
+                <h2 class="section-title">About Me</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>I'm a passionate software developer with a focus on creating elegant solutions to complex problems. With expertise in Java and modern web technologies, I love building applications that make a difference.</p>
+                        <div class="skills">
+                            <div class="skill-item">
+                                <span class="skill-name">Java</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-width="90%"></div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">DevOps</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="85%"></div>
+                            <div class="skill-item">
+                                <span class="skill-name">DevOps</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-width="85%"></div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">Web Development</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="88%"></div>
+                            <div class="skill-item">
+                                <span class="skill-name">Web Development</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-width="88%"></div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">Problem Solving</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="92%"></div>
+                            <div class="skill-item">
+                                <span class="skill-name">Problem Solving</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-width="92%"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="projects">
-        <div class="container">
-            <h2 class="section-title">Featured Projects</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-image repo-preview">
-                        <div class="repo-preview-window">
-                            <div class="repo-preview-header">
-                                <span></span><span></span><span></span>
+        <!-- Projects Section -->
+        <section id="projects" class="projects">
+            <div class="container">
+                <h2 class="section-title">Featured Projects</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-image repo-preview">
+                            <div class="repo-preview-window">
+                                <div class="repo-preview-header">
+                                    <span></span><span></span><span></span>
+                                </div>
+                                <div class="repo-preview-lines">
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
                             </div>
-                            <div class="repo-preview-lines">
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
+                        </div>
+                        <div class="project-info">
+                            <h3>Java Practice Repository</h3>
+                            <p>A comprehensive collection of Java programming exercises, algorithms, and best practices.</p>
+                            <div class="project-tags">
+                                <span class="tag">Java</span>
+                                <span class="tag">Algorithms</span>
+                                <span class="tag">DSA</span>
+                            </div>
+                            <a href="https://github.com/arjunramendra/Java_Practice" target="_blank" class="project-link">
+                                View on GitHub →
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="project-card game-card">
+                        <div class="project-image game-container">
+                            <canvas id="gameCanvas" width="300" height="200"></canvas>
+                            <div class="game-overlay">
+                                <button id="startGame" class="game-start-btn">Play Game! 🎮</button>
+                            </div>
+                            <div id="gameScore" class="game-score" aria-live="polite">Score: 0</div>
+                        </div>
+                        <div class="project-info">
+                            <h3>Dodge the Obstacles!</h3>
+                            <p>A fun mini-game built with HTML5 Canvas. Use arrow keys or tap left/right side of the screen to move and avoid the falling blocks!</p>
+                            <div class="project-tags">
+                                <span class="tag">JavaScript</span>
+                                <span class="tag">Canvas</span>
+                                <span class="tag">Game Dev</span>
                             </div>
                         </div>
                     </div>
-                    <div class="project-info">
-                        <h3>Java Practice Repository</h3>
-                        <p>A comprehensive collection of Java programming exercises, algorithms, and best practices.</p>
-                        <div class="project-tags">
-                            <span class="tag">Java</span>
-                            <span class="tag">Algorithms</span>
-                            <span class="tag">DSA</span>
-                        </div>
-                        <a href="https://github.com/arjunramendra/Java_Practice" target="_blank" class="project-link">
-                            View on GitHub →
-                        </a>
-                    </div>
-                </div>
 
-                <div class="project-card game-card">
-                    <div class="project-image game-container">
-                        <canvas id="gameCanvas" width="300" height="200"></canvas>
-                        <div class="game-overlay">
-                            <button id="startGame" class="game-start-btn">Play Game! 🎮</button>
+                    <div class="project-card">
+                        <div class="project-image puppy-container">
+                            <canvas id="puppyCanvas" width="300" height="200"></canvas>
+                            <div class="puppy-controls">
+                                <button class="puppy-btn" id="feedPuppy">🦴 Feed</button>
+                                <button class="puppy-btn" id="playPuppy">⚽ Play</button>
+                                <button class="puppy-btn" id="petPuppy">💕 Pet</button>
+                            </div>
+                            <div id="puppyMood" class="puppy-mood">Mood: 😊 Happy</div>
                         </div>
-                        <div id="gameScore" class="game-score">Score: 0</div>
-                    </div>
-                    <div class="project-info">
-                        <h3>Dodge the Obstacles!</h3>
-                        <p>A fun mini-game built with HTML5 Canvas. Use arrow keys or tap left/right side of the screen to move and avoid the falling blocks!</p>
-                        <div class="project-tags">
-                            <span class="tag">JavaScript</span>
-                            <span class="tag">Canvas</span>
-                            <span class="tag">Game Dev</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image puppy-container">
-                        <canvas id="puppyCanvas" width="300" height="200"></canvas>
-                        <div class="puppy-controls">
-                            <button class="puppy-btn" id="feedPuppy">🦴 Feed</button>
-                            <button class="puppy-btn" id="playPuppy">⚽ Play</button>
-                            <button class="puppy-btn" id="petPuppy">💕 Pet</button>
-                        </div>
-                        <div id="puppyMood" class="puppy-mood">Mood: 😊 Happy</div>
-                    </div>
-                    <div class="project-info">
-                        <h3>Virtual Puppy Playground</h3>
-                        <p>A delightful interactive playground! Click the buttons to interact with the puppy, or click on the canvas to make them walk around.</p>
-                        <div class="project-tags">
-                            <span class="tag">Canvas</span>
-                            <span class="tag">Animation</span>
-                            <span class="tag">Interactive</span>
+                        <div class="project-info">
+                            <h3>Virtual Puppy Playground</h3>
+                            <p>A delightful interactive playground! Click the buttons to interact with the puppy, or click on the canvas to make them walk around.</p>
+                            <div class="project-tags">
+                                <span class="tag">Canvas</span>
+                                <span class="tag">Animation</span>
+                                <span class="tag">Interactive</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title">Get In Touch</h2>
-            <p class="contact-subtitle">Have a project in mind or want to collaborate? Let's connect!</p>
-            <div class="contact-links">
-                <a href="https://github.com/arjunramendra" target="_blank" class="contact-btn">
-                    <span class="icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" role="img" focusable="false">
-                            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58 0-.29-.01-1.04-.02-2.04-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.33-1.76-1.33-1.76-1.09-.75.08-.73.08-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.84 2.82 1.31 3.51 1 .11-.78.42-1.31.76-1.61-2.67-.31-5.47-1.34-5.47-5.93 0-1.31.47-2.38 1.23-3.22-.12-.3-.53-1.53.12-3.18 0 0 1-.32 3.3 1.23a11.49 11.49 0 0 1 6 0c2.29-1.55 3.29-1.23 3.29-1.23.65 1.65.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.6-2.8 5.61-5.48 5.92.43.37.82 1.11.82 2.24 0 1.62-.01 2.92-.01 3.32 0 .32.21.69.83.58A12 12 0 0 0 24 12c0-6.63-5.37-12-12-12z"></path>
-                        </svg>
-                    </span> GitHub
-                </a>
-                <a href="mailto:ramendraarjun@gmail.com" class="contact-btn">
-                    <span class="icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" role="img" focusable="false">
-                            <path d="M2 5.5A2.5 2.5 0 0 1 4.5 3h15A2.5 2.5 0 0 1 22 5.5v13a2.5 2.5 0 0 1-2.5 2.5h-15A2.5 2.5 0 0 1 2 18.5v-13Zm2.2.3 7.8 5.8 7.8-5.8H4.2Zm15.8 2.47-7.4 5.5a1 1 0 0 1-1.2 0L4 8.27V18.5c0 .28.22.5.5.5h15a.5.5 0 0 0 .5-.5V8.27Z"></path>
-                        </svg>
-                    </span> Email
-                </a>
-                <a href="https://www.linkedin.com/in/arjunramendra" target="_blank" class="contact-btn">
-                    <span class="icon">💼</span> LinkedIn
-                </a>
+        <!-- Contact Section -->
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2 class="section-title">Get In Touch</h2>
+                <p class="contact-subtitle">Have a project in mind or want to collaborate? Let's connect!</p>
+                <div class="contact-links">
+                    <a href="https://github.com/arjunramendra" target="_blank" class="contact-btn">
+                        <span class="icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" role="img" focusable="false">
+                                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58 0-.29-.01-1.04-.02-2.04-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.33-1.76-1.33-1.76-1.09-.75.08-.73.08-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.84 2.82 1.31 3.51 1 .11-.78.42-1.31.76-1.61-2.67-.31-5.47-1.34-5.47-5.93 0-1.31.47-2.38 1.23-3.22-.12-.3-.53-1.53.12-3.18 0 0 1-.32 3.3 1.23a11.49 11.49 0 0 1 6 0c2.29-1.55 3.29-1.23 3.29-1.23.65 1.65.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.6-2.8 5.61-5.48 5.92.43.37.82 1.11.82 2.24 0 1.62-.01 2.92-.01 3.32 0 .32.21.69.83.58A12 12 0 0 0 24 12c0-6.63-5.37-12-12-12z"></path>
+                            </svg>
+                        </span> GitHub
+                    </a>
+                    <a href="mailto:ramendraarjun@gmail.com" class="contact-btn">
+                        <span class="icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" role="img" focusable="false">
+                                <path d="M2 5.5A2.5 2.5 0 0 1 4.5 3h15A2.5 2.5 0 0 1 22 5.5v13a2.5 2.5 0 0 1-2.5 2.5h-15A2.5 2.5 0 0 1 2 18.5v-13Zm2.2.3 7.8 5.8 7.8-5.8H4.2Zm15.8 2.47-7.4 5.5a1 1 0 0 1-1.2 0L4 8.27V18.5c0 .28.22.5.5.5h15a.5.5 0 0 0 .5-.5V8.27Z"></path>
+                            </svg>
+                        </span> Email
+                    </a>
+                    <a href="https://www.linkedin.com/in/arjunramendra" target="_blank" class="contact-btn">
+                        <span class="icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" role="img" focusable="false">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path>
+                            </svg>
+                        </span> LinkedIn
+                    </a>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <!-- Footer -->
     <footer class="footer">

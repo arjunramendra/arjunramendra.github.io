@@ -227,7 +227,6 @@ body {
     transition: background var(--motion-fast) var(--ease-smooth), color var(--motion-fast) var(--ease-smooth);
 }
 
-
 .copyable-field:hover {
     background: color-mix(in srgb, var(--accent-primary) 12%, transparent);
     color: var(--text-primary);
@@ -276,6 +275,13 @@ body {
     width: 100%;
 }
 
+/* Nav controls: theme toggle + hamburger */
+.nav-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
 .theme-toggle {
     background: var(--bg-secondary);
     border: 2px solid var(--border-color);
@@ -302,6 +308,70 @@ body {
 
 .dark-mode .moon-icon {
     display: inline;
+}
+
+/* Hamburger button */
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    width: 32px;
+    height: 32px;
+}
+
+.nav-toggle span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--text-primary);
+    border-radius: 2px;
+    transition: transform var(--motion-medium) var(--ease-smooth), opacity var(--motion-fast) var(--ease-smooth);
+}
+
+.nav-toggle.is-open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.nav-toggle.is-open span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+
+.nav-toggle.is-open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile menu — hidden on desktop, animated on mobile */
+.mobile-menu {
+    display: none;
+}
+
+.mobile-nav-links {
+    list-style: none;
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.mobile-nav-link {
+    display: block;
+    padding: 0.75rem 1rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: background var(--motion-fast) var(--ease-smooth), color var(--motion-fast) var(--ease-smooth);
+}
+
+.mobile-nav-link:hover {
+    background: color-mix(in srgb, var(--accent-primary) 10%, transparent);
+    color: var(--accent-primary);
 }
 
 /* ===== Hero Section ===== */
@@ -559,12 +629,6 @@ section {
     overflow: hidden;
 }
 
-.project-placeholder {
-    font-size: 4rem;
-    color: white;
-    opacity: 0.3;
-}
-
 .repo-preview {
     background: linear-gradient(160deg, #181f36, #272d4b);
 }
@@ -607,15 +671,6 @@ section {
 .repo-preview-lines div:nth-child(2) { width: 82%; }
 .repo-preview-lines div:nth-child(3) { width: 58%; }
 .repo-preview-lines div:nth-child(4) { width: 73%; }
-
-.code-symbol {
-    animation: float 3s ease-in-out infinite;
-}
-
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-}
 
 .project-info {
     padding: 1.5rem;
@@ -810,7 +865,6 @@ section {
 }
 
 /* ===== Contact Section ===== */
-
 .contact-subtitle {
     text-align: center;
     color: var(--text-secondary);
@@ -881,6 +935,28 @@ section {
         display: none;
     }
 
+    .nav-toggle {
+        display: flex;
+    }
+
+    /* Mobile menu: animate open/close via grid-template-rows */
+    .mobile-menu {
+        display: grid;
+        grid-template-rows: 0fr;
+        overflow: hidden;
+        border-top: 1px solid var(--border-color);
+        transition: grid-template-rows var(--motion-medium) var(--ease-smooth);
+    }
+
+    .mobile-menu > ul {
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    .mobile-menu.is-open {
+        grid-template-rows: 1fr;
+    }
+
     .logo-popup {
         left: 0;
         transform: translateX(var(--popup-shift-x, 0px)) translateY(-10px);
@@ -891,7 +967,7 @@ section {
     .logo-wrap.is-open .logo-popup {
         transform: translateX(var(--popup-shift-x, 0px)) translateY(0);
     }
-    
+
     .hero {
         min-height: 90vh;
     }
@@ -904,11 +980,11 @@ section {
     .scroll-indicator {
         animation: none;
     }
-    
+
     section {
         padding: 3rem 1rem;
     }
-    
+
     .projects-grid {
         grid-template-columns: 1fr;
     }
@@ -941,25 +1017,15 @@ section {
     }
 }
 
-/* ===== Animations ===== */
-@keyframes slideInLeft {
-    from {
-        opacity: 0;
-        transform: translateX(-50px);
+/* ===== Accessibility: Reduced Motion ===== */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
     }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
 
-@keyframes slideInRight {
-    from {
-        opacity: 0;
-        transform: translateX(50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
+    html {
+        scroll-behavior: auto;
     }
 }
