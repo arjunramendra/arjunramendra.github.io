@@ -1,27 +1,24 @@
-// Theme Toggle Functionality
+// ===== Theme =====
 const themeToggle = document.getElementById("themeToggle");
 const body = document.body;
 
-// Check for saved theme preference or default to light mode
-const currentTheme = localStorage.getItem("theme") || "light";
-if (currentTheme === "dark") {
+// Use saved preference, then OS preference, then light
+const savedTheme = localStorage.getItem("theme");
+const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
     body.classList.add("dark-mode");
 }
 
 themeToggle.addEventListener("click", () => {
     body.classList.toggle("dark-mode");
-
-    // Save theme preference
-    const theme = body.classList.contains("dark-mode") ? "dark" : "light";
-    localStorage.setItem("theme", theme);
+    localStorage.setItem("theme", body.classList.contains("dark-mode") ? "dark" : "light");
 });
 
-// Resume button: normal click opens PDF, Shift+Click downloads it.
+// ===== Resume button: normal click views PDF, Shift+Click downloads =====
 const resumeAction = document.getElementById("resumeAction");
 if (resumeAction) {
     resumeAction.addEventListener("click", (e) => {
         if (!e.shiftKey) return;
-
         e.preventDefault();
         const tempLink = document.createElement("a");
         tempLink.href = resumeAction.getAttribute("href");
@@ -32,51 +29,37 @@ if (resumeAction) {
     });
 }
 
-// Profile popup copy actions
-const copyableFields = document.querySelectorAll(".copyable-field");
-copyableFields.forEach((field) => {
+// ===== Profile popup copy actions =====
+document.querySelectorAll(".copyable-field").forEach((field) => {
     field.addEventListener("click", async () => {
         const text = field.dataset.copy;
         if (!text) return;
-
         try {
             await navigator.clipboard.writeText(text);
         } catch {
-            const helper = document.createElement("textarea");
-            helper.value = text;
-            document.body.appendChild(helper);
-            helper.select();
-            document.execCommand("copy");
-            helper.remove();
+            // Clipboard API unavailable — silent fail
         }
-
         field.classList.add("copied");
-        setTimeout(() => {
-            field.classList.remove("copied");
-        }, 700);
-
+        setTimeout(() => field.classList.remove("copied"), 700);
     });
 });
 
-// Ensure popup closes after pointer leaves, even after click-induced focus.
+// ===== Logo popup positioning and open/close =====
 const logoWrap = document.querySelector(".logo-wrap");
 const logoPopup = document.querySelector(".logo-popup");
 
 function adjustLogoPopupPosition() {
     if (!logoWrap || !logoPopup) return;
-
     logoWrap.style.setProperty("--popup-shift-x", "0px");
     const rect = logoPopup.getBoundingClientRect();
     const viewportPadding = 8;
     let shift = 0;
-
     if (rect.right > window.innerWidth - viewportPadding) {
         shift -= rect.right - (window.innerWidth - viewportPadding);
     }
     if (rect.left + shift < viewportPadding) {
         shift += viewportPadding - (rect.left + shift);
     }
-
     logoWrap.style.setProperty("--popup-shift-x", `${Math.round(shift)}px`);
 }
 
@@ -91,7 +74,7 @@ if (logoWrap) {
     logoWrap.addEventListener("focusin", adjustLogoPopupPosition);
 }
 
-// Mobile/touch behavior for AR popup: tap to open/close, tap outside to close.
+// Mobile/touch: tap to open/close, tap outside to close
 const touchMediaQuery = window.matchMedia("(hover: none), (pointer: coarse)");
 if (logoWrap) {
     const isLogoPopupOpen = () => logoWrap.classList.contains("is-open");
@@ -112,7 +95,6 @@ if (logoWrap) {
     logoWrap.addEventListener("click", (e) => {
         if (!touchMediaQuery.matches) return;
         if (e.target.closest(".copyable-field")) return;
-
         e.preventDefault();
         e.stopPropagation();
         setLogoPopupOpen(!isLogoPopupOpen());
@@ -125,47 +107,77 @@ if (logoWrap) {
     });
 
     document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") {
-            setLogoPopupOpen(false);
-        }
+        if (e.key === "Escape") setLogoPopupOpen(false);
     });
 
+    // Debounced resize handler
+    let resizeTimer;
     window.addEventListener("resize", () => {
-        if (!touchMediaQuery.matches) {
-            setLogoPopupOpen(false);
-            adjustLogoPopupPosition();
-        }
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            if (!touchMediaQuery.matches) {
+                setLogoPopupOpen(false);
+                adjustLogoPopupPosition();
+            }
+        }, 100);
     });
 
     window.addEventListener("scroll", () => {
-        if (touchMediaQuery.matches && isLogoPopupOpen()) {
-            setLogoPopupOpen(false);
-        }
+        if (touchMediaQuery.matches && isLogoPopupOpen()) setLogoPopupOpen(false);
     }, { passive: true });
 }
 
-// Scroll-driven effects
+// ===== Mobile nav hamburger =====
+const navToggle = document.getElementById("navToggle");
+const mobileMenu = document.getElementById("mobileMenu");
+
+if (navToggle && mobileMenu) {
+    const setMobileMenuOpen = (isOpen) => {
+        navToggle.classList.toggle("is-open", isOpen);
+        mobileMenu.classList.toggle("is-open", isOpen);
+        navToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        mobileMenu.setAttribute("aria-hidden", isOpen ? "false" : "true");
+    };
+
+    navToggle.addEventListener("click", (e) => {
+        e.stopPropagation();
+        setMobileMenuOpen(!navToggle.classList.contains("is-open"));
+    });
+
+    mobileMenu.querySelectorAll(".mobile-nav-link").forEach((link) => {
+        link.addEventListener("click", () => setMobileMenuOpen(false));
+    });
+
+    document.addEventListener("click", (e) => {
+        if (!navToggle.contains(e.target) && !mobileMenu.contains(e.target)) {
+            setMobileMenuOpen(false);
+        }
+    });
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") setMobileMenuOpen(false);
+    });
+}
+
+// ===== Scroll-driven effects =====
 const navbar = document.querySelector('.navbar');
 const heroContent = document.querySelector('.hero-content');
 const sectionAnchors = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('.nav-link');
 let scrollTicking = false;
 const mobilePerfQuery = window.matchMedia("(max-width: 768px)");
-
-function isMobilePerfMode() {
-    return mobilePerfQuery.matches;
-}
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 function updateOnScroll() {
-    const currentScroll = window.pageYOffset;
-    const mobileMode = isMobilePerfMode();
+    const currentScroll = window.scrollY;
+    const mobileMode = mobilePerfQuery.matches;
 
     if (navbar) {
         navbar.classList.toggle('is-scrolled', currentScroll > 24);
     }
 
     if (heroContent) {
-        if (mobileMode) {
+        if (mobileMode || prefersReducedMotion) {
             heroContent.style.transform = 'none';
             heroContent.style.opacity = '1';
         } else {
@@ -185,8 +197,7 @@ function updateOnScroll() {
             }
         });
         navLinks.forEach((link) => {
-            const href = link.getAttribute('href');
-            link.classList.toggle('active', href === `#${activeId}`);
+            link.classList.toggle('active', link.getAttribute('href') === `#${activeId}`);
         });
     }
 
@@ -201,7 +212,7 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 updateOnScroll();
 
-// Intersection Observer for animations
+// ===== Intersection Observer for entry animations =====
 const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -100px 0px'
@@ -216,79 +227,81 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-// Observe all sections and cards
 document.addEventListener('DOMContentLoaded', () => {
-    // Prevent refresh from sticking to a previous hash section like #projects.
     if (window.location.hash) {
         history.replaceState(null, '', window.location.pathname + window.location.search);
         window.scrollTo({ top: 0, behavior: 'auto' });
     }
 
-    const mobileMode = isMobilePerfMode();
+    const mobileMode = mobilePerfQuery.matches;
 
-    // Animate sections
-    const sections = document.querySelectorAll('section');
-    sections.forEach(section => {
-        section.style.opacity = '0';
-        section.style.transform = mobileMode ? 'translateY(12px)' : 'translateY(30px)';
-        section.style.transition = mobileMode
-            ? 'opacity 0.35s ease-out, transform 0.35s ease-out'
-            : 'opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1)';
-        observer.observe(section);
-    });
-    
-    // Animate project cards
-    const cards = document.querySelectorAll('.project-card');
-    cards.forEach((card, index) => {
-        card.style.opacity = '0';
-        card.style.transform = mobileMode ? 'translateY(10px)' : 'translateY(30px)';
-        const delay = mobileMode ? 0 : index * 0.1;
-        card.style.transition = mobileMode
-            ? `opacity 0.35s ease-out ${delay}s, transform 0.35s ease-out ${delay}s`
-            : `opacity 0.6s cubic-bezier(0.22,1,0.36,1) ${delay}s, transform 0.6s cubic-bezier(0.22,1,0.36,1) ${delay}s`;
-        observer.observe(card);
-    });
-    
-    // Animate skill bars on scroll
-    const skillBars = document.querySelectorAll('.skill-progress');
+    if (prefersReducedMotion) {
+        // Skip entry animations entirely for users who prefer reduced motion
+        document.querySelectorAll('section, .project-card').forEach(el => {
+            el.style.opacity = '1';
+            el.style.transform = 'none';
+        });
+    } else {
+        // Animate sections on scroll-into-view
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = mobileMode ? 'translateY(12px)' : 'translateY(30px)';
+            section.style.transition = mobileMode
+                ? 'opacity 0.35s ease-out, transform 0.35s ease-out'
+                : 'opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1)';
+            observer.observe(section);
+        });
+
+        // Stagger project card animations
+        document.querySelectorAll('.project-card').forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = mobileMode ? 'translateY(10px)' : 'translateY(30px)';
+            const delay = mobileMode ? 0 : index * 0.1;
+            card.style.transition = mobileMode
+                ? `opacity 0.35s ease-out ${delay}s, transform 0.35s ease-out ${delay}s`
+                : `opacity 0.6s cubic-bezier(0.22,1,0.36,1) ${delay}s, transform 0.6s cubic-bezier(0.22,1,0.36,1) ${delay}s`;
+            observer.observe(card);
+        });
+    }
+
+    // Animate skill bars when they scroll into view
     const skillObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                const targetWidth = entry.target.dataset.width || '0%';
-                entry.target.style.width = targetWidth;
+                entry.target.style.width = entry.target.dataset.width || '0%';
                 skillObserver.unobserve(entry.target);
             }
         });
     }, { threshold: 0.5 });
-    
-    skillBars.forEach(bar => {
+
+    document.querySelectorAll('.skill-progress').forEach(bar => {
         bar.style.width = '0%';
         skillObserver.observe(bar);
     });
 });
 
-// Add typing effect to hero subtitle (optional enhancement)
+// ===== Typing effect for hero subtitle =====
+// Skipped if user prefers reduced motion or has already seen it this session
 const heroSubtitle = document.querySelector('.hero-subtitle');
-if (heroSubtitle) {
+if (heroSubtitle && !prefersReducedMotion && !sessionStorage.getItem('typingDone')) {
     const text = heroSubtitle.textContent;
     heroSubtitle.textContent = '';
     let i = 0;
-    
+
     function typeWriter() {
         if (i < text.length) {
             heroSubtitle.textContent += text.charAt(i);
             i++;
             setTimeout(typeWriter, 50);
+        } else {
+            sessionStorage.setItem('typingDone', '1');
         }
     }
-    
-    // Start typing after page loads
+
     setTimeout(typeWriter, 1000);
 }
 
-// Custom cursor removed for better usability
-
-// ===== Mini Game Logic =====
+// ===== Mini Game =====
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas ? canvas.getContext('2d') : null;
 const startBtn = document.getElementById('startGame');
@@ -297,11 +310,11 @@ const scoreDisplay = document.getElementById('gameScore');
 
 if (canvas && ctx) {
     let gameRunning = false;
+    let gameVisible = true;
     let score = 0;
     let gameSpeed = 2;
     let animationId;
 
-    // Player object
     const player = {
         x: canvas.width / 2 - 15,
         y: canvas.height - 40,
@@ -311,18 +324,10 @@ if (canvas && ctx) {
         dx: 0
     };
 
-    // Obstacles array
     let obstacles = [];
 
-    // Controls
-    const keys = {
-        ArrowLeft: false,
-        ArrowRight: false,
-        a: false,
-        d: false
-    };
+    const keys = { ArrowLeft: false, ArrowRight: false, a: false, d: false };
 
-    // Event listeners for keyboard
     document.addEventListener('keydown', (e) => {
         if (gameRunning && (e.key in keys)) {
             e.preventDefault();
@@ -331,145 +336,101 @@ if (canvas && ctx) {
     });
 
     document.addEventListener('keyup', (e) => {
-        if (e.key in keys) {
-            keys[e.key] = false;
-        }
+        if (e.key in keys) keys[e.key] = false;
     });
 
-    // Touch controls - simple left/right tap zones
-    canvas.addEventListener('touchstart', (e) => {
+    // Unified touch direction handler (deduplicates touchstart/touchmove)
+    function handleTouchDirection(e) {
         if (!gameRunning) return;
         e.preventDefault();
-        
         const rect = canvas.getBoundingClientRect();
         const touchX = e.touches[0].clientX - rect.left;
-        const renderedWidth = rect.width; // Use actual rendered width, not canvas.width
-        
-        // Reset keys
-        keys.ArrowLeft = false;
-        keys.ArrowRight = false;
-        
-        // Left half = move left, right half = move right
-        if (touchX < renderedWidth / 2) {
-            keys.ArrowLeft = true;
-        } else {
-            keys.ArrowRight = true;
-        }
-    });
+        keys.ArrowLeft = touchX < rect.width / 2;
+        keys.ArrowRight = !keys.ArrowLeft;
+    }
 
-    canvas.addEventListener('touchmove', (e) => {
-        if (!gameRunning) return;
-        e.preventDefault();
-        
-        const rect = canvas.getBoundingClientRect();
-        const touchX = e.touches[0].clientX - rect.left;
-        const renderedWidth = rect.width; // Use actual rendered width, not canvas.width
-        
-        // Reset keys
-        keys.ArrowLeft = false;
-        keys.ArrowRight = false;
-        
-        // Update direction based on current touch position
-        if (touchX < renderedWidth / 2) {
-            keys.ArrowLeft = true;
-        } else {
-            keys.ArrowRight = true;
-        }
-    });
-
+    canvas.addEventListener('touchstart', handleTouchDirection, { passive: false });
+    canvas.addEventListener('touchmove', handleTouchDirection, { passive: false });
     canvas.addEventListener('touchend', (e) => {
         e.preventDefault();
         keys.ArrowLeft = false;
         keys.ArrowRight = false;
     });
-
-    canvas.addEventListener('touchcancel', (e) => {
-        e.preventDefault();
+    canvas.addEventListener('touchcancel', () => {
         keys.ArrowLeft = false;
         keys.ArrowRight = false;
     });
 
-    // Draw player
+    // Pre-render the static grid background once instead of every frame
+    const offscreenGrid = (() => {
+        const oc = document.createElement('canvas');
+        oc.width = canvas.width;
+        oc.height = canvas.height;
+        const octx = oc.getContext('2d');
+        octx.fillStyle = '#2d3748';
+        octx.fillRect(0, 0, oc.width, oc.height);
+        octx.strokeStyle = '#4a5568';
+        octx.lineWidth = 0.5;
+        for (let i = 0; i < oc.width; i += 20) {
+            octx.beginPath();
+            octx.moveTo(i, 0);
+            octx.lineTo(i, oc.height);
+            octx.stroke();
+        }
+        return oc;
+    })();
+
     function drawPlayer() {
         ctx.fillStyle = '#4ade80';
         ctx.fillRect(player.x, player.y, player.width, player.height);
-        
-        // Add a simple face
         ctx.fillStyle = '#ffffff';
         ctx.fillRect(player.x + 8, player.y + 8, 5, 5);
         ctx.fillRect(player.x + 17, player.y + 8, 5, 5);
         ctx.fillRect(player.x + 10, player.y + 20, 10, 3);
     }
 
-    // Create obstacle
     function createObstacle() {
         const width = 20 + Math.random() * 40;
         obstacles.push({
             x: Math.random() * (canvas.width - width),
             y: -30,
-            width: width,
+            width,
             height: 30,
             speed: gameSpeed
         });
     }
 
-    // Draw obstacles
     function drawObstacles() {
-        ctx.fillStyle = '#ef4444';
         obstacles.forEach(obs => {
+            ctx.fillStyle = '#ef4444';
             ctx.fillRect(obs.x, obs.y, obs.width, obs.height);
-            
-            // Add danger stripes
             ctx.fillStyle = '#fca5a5';
             for (let i = 0; i < obs.width; i += 10) {
                 ctx.fillRect(obs.x + i, obs.y, 5, obs.height);
             }
-            ctx.fillStyle = '#ef4444';
         });
     }
 
-    // Update player position
     function updatePlayer() {
-        // Reset dx first
         player.dx = 0;
-        
-        // Check keyboard controls
-        if (keys.ArrowLeft || keys.a) {
-            player.dx = -player.speed;
-        }
-        if (keys.ArrowRight || keys.d) {
-            player.dx = player.speed;
-        }
-
-        player.x += player.dx;
-
-        // Boundaries
-        if (player.x < 0) player.x = 0;
-        if (player.x + player.width > canvas.width) {
-            player.x = canvas.width - player.width;
-        }
+        if (keys.ArrowLeft || keys.a) player.dx = -player.speed;
+        if (keys.ArrowRight || keys.d) player.dx = player.speed;
+        player.x = Math.max(0, Math.min(player.x + player.dx, canvas.width - player.width));
     }
 
-    // Update obstacles
     function updateObstacles() {
         for (let index = obstacles.length - 1; index >= 0; index--) {
             const obs = obstacles[index];
             obs.y += obs.speed;
 
-            // Remove obstacles that are off screen
             if (obs.y > canvas.height) {
                 obstacles.splice(index, 1);
                 score += 10;
                 scoreDisplay.textContent = `Score: ${score}`;
-                
-                // Increase difficulty
-                if (score % 100 === 0) {
-                    gameSpeed += 0.5;
-                }
+                if (score % 100 === 0) gameSpeed += 0.5;
                 continue;
             }
 
-            // Collision detection
             if (
                 player.x < obs.x + obs.width &&
                 player.x + player.width > obs.x &&
@@ -483,42 +444,25 @@ if (canvas && ctx) {
         return false;
     }
 
-    // Clear canvas
     function clear() {
-        ctx.fillStyle = '#2d3748';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        
-        // Draw grid
-        ctx.strokeStyle = '#4a5568';
-        ctx.lineWidth = 0.5;
-        for (let i = 0; i < canvas.width; i += 20) {
-            ctx.beginPath();
-            ctx.moveTo(i, 0);
-            ctx.lineTo(i, canvas.height);
-            ctx.stroke();
-        }
+        ctx.drawImage(offscreenGrid, 0, 0);
     }
 
-    // Game loop
     function gameLoop() {
         if (!gameRunning) return;
+        if (!gameVisible) return; // paused — IntersectionObserver will resume
 
         clear();
         drawPlayer();
         drawObstacles();
         updatePlayer();
-        const collided = updateObstacles();
-        if (collided || !gameRunning) return;
+        if (updateObstacles()) return;
 
-        // Randomly create obstacles
-        if (Math.random() < 0.02) {
-            createObstacle();
-        }
+        if (Math.random() < 0.02) createObstacle();
 
         animationId = requestAnimationFrame(gameLoop);
     }
 
-    // Start game
     function startGame() {
         gameRunning = true;
         score = 0;
@@ -530,44 +474,45 @@ if (canvas && ctx) {
         gameLoop();
     }
 
-    // Game over
     function gameOver() {
         gameRunning = false;
         cancelAnimationFrame(animationId);
-        
-        // Show game over message
+
         ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-        
         ctx.fillStyle = '#ffffff';
         ctx.font = 'bold 24px Arial';
         ctx.textAlign = 'center';
         ctx.fillText('Game Over!', canvas.width / 2, canvas.height / 2 - 20);
-        
         ctx.font = '18px Arial';
         ctx.fillText(`Final Score: ${score}`, canvas.width / 2, canvas.height / 2 + 10);
-        
         ctx.font = '14px Arial';
         ctx.fillText('Click to play again', canvas.width / 2, canvas.height / 2 + 40);
-        
-        // Reset overlay
+
         setTimeout(() => {
             gameOverlay.classList.remove('hidden');
             startBtn.textContent = 'Play Again! 🎮';
         }, 2000);
     }
 
-    // Event listener for start button
-    if (startBtn) {
-        startBtn.addEventListener('click', startGame);
-    }
+    if (startBtn) startBtn.addEventListener('click', startGame);
 
-    // Draw initial state
+    // Pause game loop when canvas is scrolled off-screen
+    new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const wasVisible = gameVisible;
+            gameVisible = entry.isIntersecting;
+            if (gameVisible && !wasVisible && gameRunning) {
+                animationId = requestAnimationFrame(gameLoop);
+            }
+        });
+    }, { threshold: 0.05 }).observe(canvas);
+
     clear();
     drawPlayer();
 }
 
-// ===== Puppy Playground Logic =====
+// ===== Puppy Playground =====
 const puppyCanvas = document.getElementById('puppyCanvas');
 const puppyCtx = puppyCanvas ? puppyCanvas.getContext('2d') : null;
 const feedBtn = document.getElementById('feedPuppy');
@@ -579,8 +524,7 @@ if (puppyCanvas && puppyCtx) {
     let puppyAnimationId;
     let puppyRunning = false;
     let puppyVisible = true;
-    
-    // Puppy object
+
     const puppy = {
         x: puppyCanvas.width / 2,
         y: puppyCanvas.height / 2,
@@ -588,136 +532,54 @@ if (puppyCanvas && puppyCtx) {
         targetY: puppyCanvas.height / 2,
         size: 30,
         speed: 1.5,
-        direction: 1, // 1 for right, -1 for left
+        direction: 1,
         mood: 'happy',
         isJumping: false,
         jumpHeight: 0,
+        wiggleOffset: 0, // visual-only offset, doesn't affect position tracking
         activity: 'idle'
     };
 
-    // Particles for effects
     let particles = [];
 
-    // Mood states
     const moods = {
-        happy: { emoji: '😊', text: 'Happy' },
+        happy:   { emoji: '😊', text: 'Happy' },
         excited: { emoji: '🤩', text: 'Excited!' },
         playful: { emoji: '😄', text: 'Playful!' },
-        loved: { emoji: '🥰', text: 'Loved!' }
+        loved:   { emoji: '🥰', text: 'Loved!' }
     };
 
-    // Create particle effect
     function createParticles(x, y, type) {
         const colors = {
             heart: ['#ff69b4', '#ff1493', '#ffc0cb'],
-            star: ['#ffd700', '#ffff00', '#ffa500'],
-            bone: ['#f5deb3', '#deb887', '#d2b48c']
+            star:  ['#ffd700', '#ffff00', '#ffa500'],
+            bone:  ['#f5deb3', '#deb887', '#d2b48c']
         };
-        
+        const symbols = { heart: '💕', star: '⭐', bone: '🦴' };
         for (let i = 0; i < 10; i++) {
             particles.push({
-                x: x,
-                y: y,
+                x, y,
                 vx: (Math.random() - 0.5) * 4,
                 vy: -Math.random() * 4 - 2,
                 life: 1,
                 color: colors[type][Math.floor(Math.random() * colors[type].length)],
-                symbol: type === 'heart' ? '💕' : type === 'star' ? '⭐' : '🦴'
+                symbol: symbols[type]
             });
         }
     }
 
-    // Draw puppy
-    function drawPuppy() {
-        const x = puppy.x;
-        const y = puppy.y - puppy.jumpHeight;
-        const size = puppy.size;
-        
-        puppyCtx.save();
-        
-        // Flip puppy based on direction
-        if (puppy.direction === -1) {
-            puppyCtx.translate(x + size / 2, y + size / 2);
-            puppyCtx.scale(-1, 1);
-            puppyCtx.translate(-(x + size / 2), -(y + size / 2));
-        }
-        
-        // Body
-        puppyCtx.fillStyle = '#d4a373';
-        puppyCtx.beginPath();
-        puppyCtx.ellipse(x, y, size * 0.6, size * 0.5, 0, 0, Math.PI * 2);
-        puppyCtx.fill();
-        
-        // Head
-        puppyCtx.fillStyle = '#d4a373';
-        puppyCtx.beginPath();
-        puppyCtx.arc(x + size * 0.3, y - size * 0.3, size * 0.4, 0, Math.PI * 2);
-        puppyCtx.fill();
-        
-        // Ears
-        puppyCtx.fillStyle = '#b8894d';
-        puppyCtx.beginPath();
-        puppyCtx.ellipse(x + size * 0.1, y - size * 0.5, size * 0.2, size * 0.3, -0.3, 0, Math.PI * 2);
-        puppyCtx.fill();
-        puppyCtx.beginPath();
-        puppyCtx.ellipse(x + size * 0.5, y - size * 0.5, size * 0.2, size * 0.3, 0.3, 0, Math.PI * 2);
-        puppyCtx.fill();
-        
-        // Eyes
-        puppyCtx.fillStyle = '#000';
-        puppyCtx.beginPath();
-        puppyCtx.arc(x + size * 0.2, y - size * 0.35, size * 0.08, 0, Math.PI * 2);
-        puppyCtx.fill();
-        puppyCtx.beginPath();
-        puppyCtx.arc(x + size * 0.4, y - size * 0.35, size * 0.08, 0, Math.PI * 2);
-        puppyCtx.fill();
-        
-        // Eye shine
-        puppyCtx.fillStyle = '#fff';
-        puppyCtx.beginPath();
-        puppyCtx.arc(x + size * 0.22, y - size * 0.37, size * 0.03, 0, Math.PI * 2);
-        puppyCtx.fill();
-        puppyCtx.beginPath();
-        puppyCtx.arc(x + size * 0.42, y - size * 0.37, size * 0.03, 0, Math.PI * 2);
-        puppyCtx.fill();
-        
-        // Nose
-        puppyCtx.fillStyle = '#000';
-        puppyCtx.beginPath();
-        puppyCtx.arc(x + size * 0.3, y - size * 0.2, size * 0.06, 0, Math.PI * 2);
-        puppyCtx.fill();
-        
-        // Mouth (varies by mood)
-        puppyCtx.strokeStyle = '#000';
-        puppyCtx.lineWidth = 2;
-        puppyCtx.beginPath();
-        if (puppy.mood === 'excited' || puppy.mood === 'playful') {
-            puppyCtx.arc(x + size * 0.3, y - size * 0.15, size * 0.15, 0.2, Math.PI - 0.2);
-        } else {
-            puppyCtx.arc(x + size * 0.3, y - size * 0.15, size * 0.12, 0.3, Math.PI - 0.3);
-        }
-        puppyCtx.stroke();
-        
-        // Tail (wagging based on mood)
-        const tailWag = puppy.mood !== 'happy' ? Math.sin(Date.now() * 0.02) * 0.3 : 0;
-        puppyCtx.strokeStyle = '#d4a373';
-        puppyCtx.lineWidth = 4;
-        puppyCtx.beginPath();
-        puppyCtx.arc(x - size * 0.5, y + size * 0.1, size * 0.3, -Math.PI / 4 + tailWag, Math.PI / 4 + tailWag);
-        puppyCtx.stroke();
-        
-        puppyCtx.restore();
-    }
+    // Pre-compute background gradient once instead of every frame
+    const bgGradient = (() => {
+        const g = puppyCtx.createLinearGradient(0, 0, 0, puppyCanvas.height);
+        g.addColorStop(0, '#87ceeb');
+        g.addColorStop(1, '#90ee90');
+        return g;
+    })();
 
-    // Draw background elements
     function drawBackground() {
-        // Sky gradient
-        const gradient = puppyCtx.createLinearGradient(0, 0, 0, puppyCanvas.height);
-        gradient.addColorStop(0, '#87ceeb');
-        gradient.addColorStop(1, '#90ee90');
-        puppyCtx.fillStyle = gradient;
+        puppyCtx.fillStyle = bgGradient;
         puppyCtx.fillRect(0, 0, puppyCanvas.width, puppyCanvas.height);
-        
+
         // Clouds
         puppyCtx.fillStyle = 'rgba(255, 255, 255, 0.7)';
         puppyCtx.beginPath();
@@ -725,14 +587,14 @@ if (puppyCanvas && puppyCtx) {
         puppyCtx.arc(70, 30, 20, 0, Math.PI * 2);
         puppyCtx.arc(90, 30, 15, 0, Math.PI * 2);
         puppyCtx.fill();
-        
+
         puppyCtx.beginPath();
         puppyCtx.arc(220, 50, 15, 0, Math.PI * 2);
         puppyCtx.arc(240, 50, 20, 0, Math.PI * 2);
         puppyCtx.arc(260, 50, 15, 0, Math.PI * 2);
         puppyCtx.fill();
-        
-        // Grass blades
+
+        // Grass
         puppyCtx.strokeStyle = '#228b22';
         puppyCtx.lineWidth = 2;
         for (let i = 0; i < puppyCanvas.width; i += 20) {
@@ -743,36 +605,108 @@ if (puppyCanvas && puppyCtx) {
         }
     }
 
-    // Update puppy position
+    function drawPuppy() {
+        // wiggleOffset is visual-only — applied here, not in position tracking
+        const x = puppy.x + puppy.wiggleOffset;
+        const y = puppy.y - puppy.jumpHeight;
+        const size = puppy.size;
+
+        puppyCtx.save();
+
+        if (puppy.direction === -1) {
+            puppyCtx.translate(x + size / 2, y + size / 2);
+            puppyCtx.scale(-1, 1);
+            puppyCtx.translate(-(x + size / 2), -(y + size / 2));
+        }
+
+        // Body
+        puppyCtx.fillStyle = '#d4a373';
+        puppyCtx.beginPath();
+        puppyCtx.ellipse(x, y, size * 0.6, size * 0.5, 0, 0, Math.PI * 2);
+        puppyCtx.fill();
+
+        // Head
+        puppyCtx.beginPath();
+        puppyCtx.arc(x + size * 0.3, y - size * 0.3, size * 0.4, 0, Math.PI * 2);
+        puppyCtx.fill();
+
+        // Ears
+        puppyCtx.fillStyle = '#b8894d';
+        puppyCtx.beginPath();
+        puppyCtx.ellipse(x + size * 0.1, y - size * 0.5, size * 0.2, size * 0.3, -0.3, 0, Math.PI * 2);
+        puppyCtx.fill();
+        puppyCtx.beginPath();
+        puppyCtx.ellipse(x + size * 0.5, y - size * 0.5, size * 0.2, size * 0.3, 0.3, 0, Math.PI * 2);
+        puppyCtx.fill();
+
+        // Eyes
+        puppyCtx.fillStyle = '#000';
+        puppyCtx.beginPath();
+        puppyCtx.arc(x + size * 0.2, y - size * 0.35, size * 0.08, 0, Math.PI * 2);
+        puppyCtx.fill();
+        puppyCtx.beginPath();
+        puppyCtx.arc(x + size * 0.4, y - size * 0.35, size * 0.08, 0, Math.PI * 2);
+        puppyCtx.fill();
+
+        // Eye shine
+        puppyCtx.fillStyle = '#fff';
+        puppyCtx.beginPath();
+        puppyCtx.arc(x + size * 0.22, y - size * 0.37, size * 0.03, 0, Math.PI * 2);
+        puppyCtx.fill();
+        puppyCtx.beginPath();
+        puppyCtx.arc(x + size * 0.42, y - size * 0.37, size * 0.03, 0, Math.PI * 2);
+        puppyCtx.fill();
+
+        // Nose
+        puppyCtx.fillStyle = '#000';
+        puppyCtx.beginPath();
+        puppyCtx.arc(x + size * 0.3, y - size * 0.2, size * 0.06, 0, Math.PI * 2);
+        puppyCtx.fill();
+
+        // Mouth (wider when excited/playful)
+        puppyCtx.strokeStyle = '#000';
+        puppyCtx.lineWidth = 2;
+        puppyCtx.beginPath();
+        if (puppy.mood === 'excited' || puppy.mood === 'playful') {
+            puppyCtx.arc(x + size * 0.3, y - size * 0.15, size * 0.15, 0.2, Math.PI - 0.2);
+        } else {
+            puppyCtx.arc(x + size * 0.3, y - size * 0.15, size * 0.12, 0.3, Math.PI - 0.3);
+        }
+        puppyCtx.stroke();
+
+        // Tail (wags when excited/playful/loved)
+        const tailWag = puppy.mood !== 'happy' ? Math.sin(Date.now() * 0.02) * 0.3 : 0;
+        puppyCtx.strokeStyle = '#d4a373';
+        puppyCtx.lineWidth = 4;
+        puppyCtx.beginPath();
+        puppyCtx.arc(x - size * 0.5, y + size * 0.1, size * 0.3, -Math.PI / 4 + tailWag, Math.PI / 4 + tailWag);
+        puppyCtx.stroke();
+
+        puppyCtx.restore();
+    }
+
     function updatePuppy() {
         const dx = puppy.targetX - puppy.x;
         const dy = puppy.targetY - puppy.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
-        
+
         if (distance > 5) {
             puppy.x += (dx / distance) * puppy.speed;
             puppy.y += (dy / distance) * puppy.speed;
-            
-            // Update direction based on movement
             if (dx > 0) puppy.direction = 1;
             else if (dx < 0) puppy.direction = -1;
         }
-        
-        // Handle jumping
+
         if (puppy.isJumping) {
             puppy.jumpHeight += 5;
-            if (puppy.jumpHeight >= 20) {
-                puppy.isJumping = false;
-            }
+            if (puppy.jumpHeight >= 20) puppy.isJumping = false;
         } else if (puppy.jumpHeight > 0) {
             puppy.jumpHeight -= 5;
         }
     }
 
-    // Update particles
     function updateParticles() {
         particles = particles.filter(p => p.life > 0);
-        
         particles.forEach(p => {
             p.x += p.vx;
             p.y += p.vy;
@@ -781,27 +715,23 @@ if (puppyCanvas && puppyCtx) {
         });
     }
 
-    // Draw particles
     function drawParticles() {
+        puppyCtx.font = '16px Arial';
         particles.forEach(p => {
             puppyCtx.save();
             puppyCtx.globalAlpha = p.life;
-            puppyCtx.font = '16px Arial';
             puppyCtx.fillText(p.symbol, p.x, p.y);
             puppyCtx.restore();
         });
     }
 
-    // Animation loop
     function puppyLoop() {
         if (!puppyRunning) return;
-
         drawBackground();
         updatePuppy();
         updateParticles();
         drawPuppy();
         drawParticles();
-        
         puppyAnimationId = requestAnimationFrame(puppyLoop);
     }
 
@@ -815,14 +745,15 @@ if (puppyCanvas && puppyCtx) {
         }
     }
 
-    // Canvas click handler
+    // Canvas click: move puppy to clicked position (scaled to canvas resolution)
     puppyCanvas.addEventListener('click', (e) => {
         const rect = puppyCanvas.getBoundingClientRect();
-        puppy.targetX = e.clientX - rect.left;
-        puppy.targetY = e.clientY - rect.top;
+        const scaleX = puppyCanvas.width / rect.width;
+        const scaleY = puppyCanvas.height / rect.height;
+        puppy.targetX = (e.clientX - rect.left) * scaleX;
+        puppy.targetY = (e.clientY - rect.top) * scaleY;
     });
 
-    // Feed button
     feedBtn.addEventListener('click', () => {
         puppy.mood = 'happy';
         puppy.isJumping = true;
@@ -830,17 +761,13 @@ if (puppyCanvas && puppyCtx) {
         moodDisplay.innerHTML = `Mood: ${moods.happy.emoji} ${moods.happy.text}`;
     });
 
-    // Play button
     playBtn.addEventListener('click', () => {
         puppy.mood = 'playful';
         puppy.speed = 3;
         createParticles(puppy.x, puppy.y, 'star');
         moodDisplay.innerHTML = `Mood: ${moods.playful.emoji} ${moods.playful.text}`;
-        
-        // Random movement
         puppy.targetX = Math.random() * (puppyCanvas.width - 60) + 30;
         puppy.targetY = Math.random() * (puppyCanvas.height - 60) + 30;
-        
         setTimeout(() => {
             puppy.speed = 1.5;
             puppy.mood = 'happy';
@@ -848,29 +775,26 @@ if (puppyCanvas && puppyCtx) {
         }, 3000);
     });
 
-    // Pet button
     petBtn.addEventListener('click', () => {
         puppy.mood = 'loved';
         createParticles(puppy.x, puppy.y, 'heart');
         moodDisplay.innerHTML = `Mood: ${moods.loved.emoji} ${moods.loved.text}`;
-        
-        // Wiggle animation
-        const originalX = puppy.x;
+
+        // Wiggle is a visual-only offset applied in drawPuppy — doesn't fight updatePuppy
         let wiggleCount = 0;
         const wiggleInterval = setInterval(() => {
-            puppy.x = originalX + Math.sin(wiggleCount * 0.5) * 5;
+            puppy.wiggleOffset = Math.sin(wiggleCount * 0.5) * 5;
             wiggleCount++;
-            
             if (wiggleCount > 20) {
                 clearInterval(wiggleInterval);
-                puppy.x = originalX;
+                puppy.wiggleOffset = 0;
                 puppy.mood = 'happy';
                 moodDisplay.innerHTML = `Mood: ${moods.happy.emoji} ${moods.happy.text}`;
             }
         }, 50);
     });
 
-    // Pause animation when canvas is out of view or tab is hidden
+    // Pause animation when canvas is off-screen or tab is hidden
     const puppyVisibilityObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             puppyVisible = entry.isIntersecting;
@@ -883,7 +807,6 @@ if (puppyCanvas && puppyCtx) {
         setPuppyRunning(puppyVisible && !document.hidden);
     });
 
-    // Start animation
     setPuppyRunning(!document.hidden);
 }
 
