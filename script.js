@@ -164,6 +164,7 @@ const navbar = document.querySelector('.navbar');
 const heroContent = document.querySelector('.hero-content');
 const sectionAnchors = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('.nav-link');
+const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
 let scrollTicking = false;
 const mobilePerfQuery = window.matchMedia("(max-width: 768px)");
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -197,6 +198,9 @@ function updateOnScroll() {
             }
         });
         navLinks.forEach((link) => {
+            link.classList.toggle('active', link.getAttribute('href') === `#${activeId}`);
+        });
+        mobileNavLinks.forEach((link) => {
             link.classList.toggle('active', link.getAttribute('href') === `#${activeId}`);
         });
     }
