@@ -944,13 +944,13 @@ section {
         display: grid;
         grid-template-rows: 0fr;
         overflow: hidden;
-        border-top: 1px solid var(--border-color);
         transition: grid-template-rows var(--motion-medium) var(--ease-smooth);
     }
 
     .mobile-menu > ul {
         min-height: 0;
         overflow: hidden;
+        border-top: 1px solid var(--border-color);
     }
 
     .mobile-menu.is-open {
