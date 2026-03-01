@@ -605,6 +605,50 @@ section {
     transition: width 1s ease-out;
 }
 
+/* ===== Skill Chips (replaces skill bars) ===== */
+.skill-groups {
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+    margin-top: 2rem;
+}
+
+.skill-group-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 0.55rem;
+}
+
+.skill-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+}
+
+.skill-chip {
+    padding: 0.28rem 0.78rem;
+    border-radius: 20px;
+    font-size: 0.81rem;
+    font-weight: 500;
+    color: var(--accent-primary);
+    background: color-mix(in srgb, var(--accent-primary) 9%, var(--bg-card));
+    border: 1px solid color-mix(in srgb, var(--accent-primary) 22%, var(--border-color));
+    transition: background var(--motion-fast) var(--ease-smooth),
+                color var(--motion-fast) var(--ease-smooth),
+                border-color var(--motion-fast) var(--ease-smooth);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .skill-chip:hover {
+        background: var(--accent-primary);
+        color: #fff;
+        border-color: var(--accent-primary);
+    }
+}
+
 /* ===== Projects Section ===== */
 .projects-grid {
     display: grid;
