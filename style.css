@@ -554,6 +554,57 @@ section {
     background-clip: text;
 }
 
+/* ===== Companies Strip ===== */
+.companies {
+    padding: 2.5rem 2rem;
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.companies-label {
+    text-align: center;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 1.75rem;
+}
+
+.companies-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3.5rem;
+    flex-wrap: wrap;
+}
+
+.company-logo {
+    height: 30px;
+    width: auto;
+    max-width: 130px;
+    object-fit: contain;
+    opacity: 0.75;
+    filter: grayscale(0.3);
+    transition: opacity var(--motion-medium) var(--ease-smooth),
+                filter var(--motion-medium) var(--ease-smooth);
+}
+
+body.dark-mode .company-logo {
+    filter: grayscale(0.3) brightness(1.6);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .company-logo:hover {
+        opacity: 1;
+        filter: grayscale(0);
+    }
+
+    body.dark-mode .company-logo:hover {
+        filter: grayscale(0) brightness(1.2);
+    }
+}
+
 /* ===== About Section ===== */
 .about {
     background: var(--bg-secondary);
@@ -603,6 +654,50 @@ section {
     background: var(--accent-gradient);
     border-radius: 10px;
     transition: width 1s ease-out;
+}
+
+/* ===== Skill Chips (replaces skill bars) ===== */
+.skill-groups {
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+    margin-top: 2rem;
+}
+
+.skill-group-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 0.55rem;
+}
+
+.skill-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+}
+
+.skill-chip {
+    padding: 0.28rem 0.78rem;
+    border-radius: 20px;
+    font-size: 0.81rem;
+    font-weight: 500;
+    color: var(--accent-primary);
+    background: color-mix(in srgb, var(--accent-primary) 9%, var(--bg-card));
+    border: 1px solid color-mix(in srgb, var(--accent-primary) 22%, var(--border-color));
+    transition: background var(--motion-fast) var(--ease-smooth),
+                color var(--motion-fast) var(--ease-smooth),
+                border-color var(--motion-fast) var(--ease-smooth);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .skill-chip:hover {
+        background: var(--accent-primary);
+        color: #fff;
+        border-color: var(--accent-primary);
+    }
 }
 
 /* ===== Projects Section ===== */
