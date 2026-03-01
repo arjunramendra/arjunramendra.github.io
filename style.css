@@ -1254,6 +1254,28 @@ body.dark-mode .company-logo--straumann {
     .projects-grid {
         grid-template-columns: 1fr;
     }
+
+    .timeline {
+        padding-left: 1.5rem;
+    }
+
+    .timeline-item {
+        padding-left: 1.25rem;
+        padding-bottom: 2rem;
+    }
+
+    .timeline-content {
+        padding: 1rem 1.1rem;
+    }
+
+    .timeline-header {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .timeline-date {
+        padding-top: 0;
+    }
 }
 
 /* On touch devices, drive popup visibility only via .is-open */
