@@ -1,17 +1,28 @@
-// ===== Theme =====
+// ===== Theme (3-state: light → dark → neon) =====
 const themeToggle = document.getElementById("themeToggle");
 const body = document.body;
 
-// Use saved preference, then OS preference, then light
-const savedTheme = localStorage.getItem("theme");
-const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
-    body.classList.add("dark-mode");
+const THEMES = ["light", "dark", "neon"];
+
+function applyTheme(theme) {
+    body.classList.remove("dark-mode", "neon-mode");
+    if (theme === "dark") body.classList.add("dark-mode");
+    if (theme === "neon") body.classList.add("neon-mode");
+    localStorage.setItem("theme", theme);
 }
 
+const savedTheme = localStorage.getItem("theme");
+const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+let currentTheme = THEMES.includes(savedTheme)
+    ? savedTheme
+    : (prefersDark ? "dark" : "light");
+
+applyTheme(currentTheme);
+
 themeToggle.addEventListener("click", () => {
-    body.classList.toggle("dark-mode");
-    localStorage.setItem("theme", body.classList.contains("dark-mode") ? "dark" : "light");
+    const next = THEMES[(THEMES.indexOf(currentTheme) + 1) % THEMES.length];
+    currentTheme = next;
+    applyTheme(currentTheme);
 });
 
 // ===== Resume button: normal click views PDF, Shift+Click downloads =====
