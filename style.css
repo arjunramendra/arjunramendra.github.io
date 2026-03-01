@@ -1176,6 +1176,20 @@ body.dark-mode .company-logo--straumann {
     border-top: 1px solid var(--border-color);
 }
 
+.footer-link {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--border-color);
+    text-underline-offset: 3px;
+    transition: color var(--motion-fast) ease,
+                text-decoration-color var(--motion-fast) ease;
+}
+
+.footer-link:hover {
+    color: var(--accent-primary);
+    text-decoration-color: var(--accent-primary);
+}
+
 
 /* ===== Timeline: Desktop two-column alternating ===== */
 @media (min-width: 769px) {
