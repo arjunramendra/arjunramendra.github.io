@@ -332,7 +332,13 @@ body {
 }
 
 .neon-mode .neon-icon {
-    display: inline;
+    display: inline-block;
+    animation: neon-spin 5s linear infinite;
+}
+
+@keyframes neon-spin {
+    from { rotate: 0deg; }
+    to   { rotate: 360deg; }
 }
 
 /* Hamburger button */
@@ -1311,9 +1317,23 @@ body.neon-mode .timeline-svg path {
     filter: drop-shadow(0 0 4px rgba(0, 229, 255, 0.65));
 }
 
-/* Neon icon in toggle button — glow on neon mode */
+/* Neon icon in toggle button — cycling colour shift */
 body.neon-mode .neon-icon {
-    text-shadow: 0 0 8px #00e5ff, 0 0 16px rgba(0, 229, 255, 0.5);
+    animation: neon-spin 5s linear infinite, neon-hue 10s linear infinite, neon-pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes neon-pulse {
+    0%, 100% { scale: 1; }
+    50%       { scale: 1.28; }
+}
+
+@keyframes neon-hue {
+    0%   { color: #00e5ff; text-shadow: 0 0 6px #00e5ff, 0 0 18px rgba(0,229,255,0.6); }
+    20%  { color: #ff2d9b; text-shadow: 0 0 6px #ff2d9b, 0 0 18px rgba(255,45,155,0.6); }
+    40%  { color: #a78bfa; text-shadow: 0 0 6px #a78bfa, 0 0 18px rgba(167,139,250,0.6); }
+    60%  { color: #34d399; text-shadow: 0 0 6px #34d399, 0 0 18px rgba(52,211,153,0.6); }
+    80%  { color: #fb923c; text-shadow: 0 0 6px #fb923c, 0 0 18px rgba(251,146,60,0.6); }
+    100% { color: #00e5ff; text-shadow: 0 0 6px #00e5ff, 0 0 18px rgba(0,229,255,0.6); }
 }
 
 /* ===== Timeline: Desktop two-column alternating ===== */
