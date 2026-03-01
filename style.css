@@ -554,6 +554,57 @@ section {
     background-clip: text;
 }
 
+/* ===== Companies Strip ===== */
+.companies {
+    padding: 2.5rem 2rem;
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.companies-label {
+    text-align: center;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 1.75rem;
+}
+
+.companies-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3.5rem;
+    flex-wrap: wrap;
+}
+
+.company-logo {
+    height: 30px;
+    width: auto;
+    max-width: 130px;
+    object-fit: contain;
+    opacity: 0.75;
+    filter: grayscale(0.3);
+    transition: opacity var(--motion-medium) var(--ease-smooth),
+                filter var(--motion-medium) var(--ease-smooth);
+}
+
+body.dark-mode .company-logo {
+    filter: grayscale(0.3) brightness(1.6);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .company-logo:hover {
+        opacity: 1;
+        filter: grayscale(0);
+    }
+
+    body.dark-mode .company-logo:hover {
+        filter: grayscale(0) brightness(1.2);
+    }
+}
+
 /* ===== About Section ===== */
 .about {
     background: var(--bg-secondary);
