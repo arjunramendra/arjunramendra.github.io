@@ -832,4 +832,21 @@ if (scrollToTopBtn) {
     });
 }
 
+
+// ===== Uniform timeline card heights =====
+function equalizeTimelineCards() {
+    const cards = Array.from(document.querySelectorAll('.timeline-content'));
+    cards.forEach(c => c.style.height = '');
+    if (window.innerWidth <= 768) return;
+    const maxH = Math.max(...cards.map(c => c.offsetHeight));
+    cards.forEach(c => c.style.height = maxH + 'px');
+}
+
+window.addEventListener('load', equalizeTimelineCards);
+let _eqTimer;
+window.addEventListener('resize', () => {
+    clearTimeout(_eqTimer);
+    _eqTimer = setTimeout(equalizeTimelineCards, 100);
+});
+
 console.log('Portfolio loaded successfully! 🚀');

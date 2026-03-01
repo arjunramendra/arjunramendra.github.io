@@ -715,8 +715,6 @@ body.dark-mode .company-logo--straumann {
 
 .timeline {
     position: relative;
-    max-width: 760px;
-    margin: 0 auto;
     padding-left: 2rem;
 }
 
@@ -1178,6 +1176,29 @@ body.dark-mode .company-logo--straumann {
     border-top: 1px solid var(--border-color);
 }
 
+
+/* ===== Timeline: Desktop two-column alternating ===== */
+@media (min-width: 769px) {
+    .timeline {
+        max-width: none;
+        padding-left: 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .timeline::before {
+        left: calc(50% - 1px);
+    }
+
+    .timeline-item:nth-child(odd)  { padding: 0 2.5rem 2.5rem 0; }
+    .timeline-item:nth-child(even) { padding: 0 0 2.5rem 2.5rem; }
+
+    .timeline-item:nth-last-child(-n+2) { padding-bottom: 0; }
+
+    .timeline-item:nth-child(odd) .timeline-marker  { left: auto; right: -5px; }
+    .timeline-item:nth-child(even) .timeline-marker { left: -5px; }
+}
+
 /* ===== Responsive Design ===== */
 @media (max-width: 768px) {
     .navbar {
@@ -1256,12 +1277,25 @@ body.dark-mode .company-logo--straumann {
     }
 
     .timeline {
+        display: block;
         padding-left: 1.5rem;
     }
 
-    .timeline-item {
-        padding-left: 1.25rem;
-        padding-bottom: 2rem;
+    .timeline::before { left: 0; }
+
+    .timeline-item,
+    .timeline-item:nth-child(odd),
+    .timeline-item:nth-child(even) {
+        padding: 0 0 2rem 1.25rem;
+    }
+
+    .timeline-item:last-child { padding-bottom: 0; }
+
+    .timeline-item:nth-child(odd) .timeline-marker,
+    .timeline-item:nth-child(even) .timeline-marker {
+        left: -0.4rem;
+        right: auto;
+        top: 6px;
     }
 
     .timeline-content {
