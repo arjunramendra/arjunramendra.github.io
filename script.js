@@ -814,4 +814,22 @@ if (puppyCanvas && puppyCtx) {
     setPuppyRunning(!document.hidden);
 }
 
+// ===== Scroll to top =====
+const scrollToTopBtn = document.getElementById('scrollToTop');
+if (scrollToTopBtn) {
+    const heroSection = document.getElementById('home');
+
+    const scrollToTopObserver = new IntersectionObserver((entries) => {
+        const heroVisible = entries[0].isIntersecting;
+        scrollToTopBtn.hidden = false;
+        scrollToTopBtn.classList.toggle('is-visible', !heroVisible);
+    }, { threshold: 0.2 });
+
+    if (heroSection) scrollToTopObserver.observe(heroSection);
+
+    scrollToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+    });
+}
+
 console.log('Portfolio loaded successfully! 🚀');
