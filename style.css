@@ -594,6 +594,14 @@ body.dark-mode .company-logo {
     filter: grayscale(0.3) brightness(1.6);
 }
 
+.company-logo--straumann {
+    filter: grayscale(0.3) brightness(1.5);
+}
+
+body.dark-mode .company-logo--straumann {
+    filter: grayscale(0.3) brightness(2.4);
+}
+
 @media (hover: hover) and (pointer: fine) {
     .company-logo:hover {
         opacity: 1;
