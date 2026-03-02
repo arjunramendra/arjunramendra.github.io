@@ -3,6 +3,7 @@ const themeToggle = document.getElementById("themeToggle");
 const body = document.body;
 
 const THEMES = ["light", "dark", "neon"];
+const NEON_COLORS = ['#00e5ff', '#ff2d9b', '#a78bfa', '#34d399', '#fb923c'];
 
 function applyTheme(theme) {
     body.classList.remove("dark-mode", "neon-mode");
@@ -23,6 +24,8 @@ themeToggle.addEventListener("click", () => {
     const next = THEMES[(THEMES.indexOf(currentTheme) + 1) % THEMES.length];
     currentTheme = next;
     applyTheme(currentTheme);
+    if (currentTheme === 'neon') startParticles();
+    else stopParticles();
 });
 
 // ===== Resume button: normal click views PDF, Shift+Click downloads =====
@@ -859,5 +862,81 @@ window.addEventListener('resize', () => {
     clearTimeout(_eqTimer);
     _eqTimer = setTimeout(equalizeTimelineCards, 100);
 });
+
+// ===== Neon: hero particles =====
+let _pCanvas = null, _pRAF = null, _pts = [];
+
+function _mkParticle(rndY) {
+    const w = _pCanvas.width, h = _pCanvas.height;
+    return {
+        x:     Math.random() * w,
+        y:     rndY ? Math.random() * h : h + 4,
+        r:     Math.random() * 1.5 + 0.7,
+        color: NEON_COLORS[Math.floor(Math.random() * NEON_COLORS.length)],
+        vy:    -(Math.random() * 0.4 + 0.18),
+        vx:    (Math.random() - 0.5) * 0.22,
+        alpha: Math.random() * 0.5 + 0.25,
+        decay: Math.random() * 0.0018 + 0.0008,
+    };
+}
+
+function _resizePCanvas() {
+    if (!_pCanvas) return;
+    _pCanvas.width  = _pCanvas.offsetWidth;
+    _pCanvas.height = _pCanvas.offsetHeight;
+    _pts = _pts.map(() => _mkParticle(true));
+}
+
+function _tickParticles() {
+    if (!_pCanvas || !body.classList.contains('neon-mode')) { _pRAF = null; return; }
+    const ctx = _pCanvas.getContext('2d');
+    ctx.clearRect(0, 0, _pCanvas.width, _pCanvas.height);
+    for (let i = 0; i < _pts.length; i++) {
+        const p = _pts[i];
+        p.x += p.vx; p.y += p.vy; p.alpha -= p.decay;
+        if (p.y < -4 || p.alpha <= 0) { _pts[i] = _mkParticle(false); continue; }
+        ctx.save();
+        ctx.globalAlpha = p.alpha;
+        ctx.shadowBlur  = 7;
+        ctx.shadowColor = p.color;
+        ctx.fillStyle   = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+    }
+    _pRAF = requestAnimationFrame(_tickParticles);
+}
+
+function startParticles() {
+    if (prefersReducedMotion || _pCanvas) return;
+    const hero = document.querySelector('.hero');
+    if (!hero) return;
+    _pCanvas = document.createElement('canvas');
+    _pCanvas.classList.add('neon-particles');
+    Object.assign(_pCanvas.style, {
+        position: 'absolute', top: '0', left: '0',
+        width: '100%', height: '100%',
+        pointerEvents: 'none', zIndex: '0',
+    });
+    hero.style.position = 'relative';
+    hero.prepend(_pCanvas);
+    _pCanvas.width  = _pCanvas.offsetWidth;
+    _pCanvas.height = _pCanvas.offsetHeight;
+    const count = Math.min(55, Math.floor(_pCanvas.width / 22));
+    _pts = Array.from({ length: count }, () => _mkParticle(true));
+    _tickParticles();
+    window.addEventListener('resize', _resizePCanvas);
+}
+
+function stopParticles() {
+    if (_pRAF) { cancelAnimationFrame(_pRAF); _pRAF = null; }
+    if (_pCanvas) { _pCanvas.remove(); _pCanvas = null; }
+    _pts = [];
+    window.removeEventListener('resize', _resizePCanvas);
+}
+
+window.addEventListener('load', () => { if (currentTheme === 'neon') startParticles(); });
+
 
 console.log('Portfolio loaded successfully! 🚀');
