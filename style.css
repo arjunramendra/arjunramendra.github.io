@@ -1264,9 +1264,10 @@ body.neon-mode .hero-title {
 
 /* Cards — pulsing border glow between purple and cyan */
 body.neon-mode .timeline-content,
-body.neon-mode .project-card {
+body.neon-mode .project-card,
+body.neon-mode .logo-popup {
     border-color: rgba(139, 0, 255, 0.3);
-    animation: neon-card-pulse 4s ease-in-out infinite;
+    animation: neon-card-pulse 5s ease-in-out infinite;
 }
 
 body.neon-mode .timeline-content:hover,
@@ -1276,8 +1277,11 @@ body.neon-mode .project-card:hover {
 }
 
 @keyframes neon-card-pulse {
-    0%, 100% { box-shadow: 0 0 16px rgba(139, 0, 255, 0.12), inset 0 0 20px rgba(0, 229, 255, 0.03); }
-    50%       { box-shadow: 0 0 22px rgba(0, 229, 255, 0.16), inset 0 0 20px rgba(139, 0, 255, 0.04); }
+    0%   { box-shadow: 0 0 10px rgba(139, 0, 255, 0.08), inset 0 0 16px rgba(0, 229, 255, 0.02); }
+    30%  { box-shadow: 0 0 16px rgba(139, 0, 255, 0.13), inset 0 0 20px rgba(0, 229, 255, 0.03); }
+    50%  { box-shadow: 0 0 22px rgba(0, 229, 255, 0.16), inset 0 0 20px rgba(139, 0, 255, 0.04); }
+    70%  { box-shadow: 0 0 16px rgba(139, 0, 255, 0.13), inset 0 0 20px rgba(0, 229, 255, 0.03); }
+    100% { box-shadow: 0 0 10px rgba(139, 0, 255, 0.08), inset 0 0 16px rgba(0, 229, 255, 0.02); }
 }
 
 /* Skill chips — cyan outline + glow */
