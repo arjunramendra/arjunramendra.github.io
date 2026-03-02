@@ -1432,6 +1432,85 @@ body.neon-mode ::-webkit-scrollbar-thumb:hover {
 }
 
 
+/* Hero name glitch effect */
+body.neon-mode .glitch {
+    position: relative;
+}
+
+body.neon-mode .glitch::before,
+body.neon-mode .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    pointer-events: none;
+    background: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+}
+
+body.neon-mode .glitch::before {
+    -webkit-text-fill-color: rgba(0, 229, 255, 0.8);
+    animation: neon-glitch-1 15s linear infinite;
+}
+
+body.neon-mode .glitch::after {
+    -webkit-text-fill-color: rgba(255, 45, 155, 0.8);
+    animation: neon-glitch-2 15s linear infinite;
+}
+
+@keyframes neon-glitch-1 {
+    /* Pattern A — thin slices, gentle offset (~3s) */
+    0%, 19.9%  { clip-path: inset(100% 0 0 0); transform: translateX(0); }
+    20%        { clip-path: inset(12% 0 65% 0); transform: translateX(-4px); }
+    20.4%      { clip-path: inset(48% 0 28% 0); transform: translateX(-2px); }
+    20.8%      { clip-path: inset(72% 0 8% 0);  transform: translateX(-5px); }
+    21.2%      { clip-path: inset(100% 0 0 0);  transform: translateX(0); }
+
+    /* Pattern B — wide slices, big offset (~8s) */
+    53.2%      { clip-path: inset(100% 0 0 0);  transform: translateX(0); }
+    53.4%      { clip-path: inset(5% 0 42% 0);  transform: translateX(-8px); }
+    53.8%      { clip-path: inset(38% 0 18% 0); transform: translateX(-3px); }
+    54.2%      { clip-path: inset(62% 0 4% 0);  transform: translateX(-7px); }
+    54.6%      { clip-path: inset(100% 0 0 0);  transform: translateX(0); }
+
+    /* Pattern C — rapid triple flash (~12.75s) */
+    84.9%      { clip-path: inset(100% 0 0 0);  transform: translateX(0); }
+    85%        { clip-path: inset(20% 0 55% 0); transform: translateX(-3px); }
+    85.3%      { clip-path: inset(100% 0 0 0);  transform: translateX(0); }
+    85.6%      { clip-path: inset(58% 0 22% 0); transform: translateX(-6px); }
+    85.9%      { clip-path: inset(100% 0 0 0);  transform: translateX(0); }
+    86.2%      { clip-path: inset(32% 0 44% 0); transform: translateX(-4px); }
+    86.5%      { clip-path: inset(100% 0 0 0);  transform: translateX(0); }
+    100%       { clip-path: inset(100% 0 0 0);  transform: translateX(0); }
+}
+
+@keyframes neon-glitch-2 {
+    /* Pattern A */
+    0%, 19.9%  { clip-path: inset(100% 0 0 0); transform: translateX(0); }
+    20%        { clip-path: inset(58% 0 18% 0); transform: translateX(4px); }
+    20.4%      { clip-path: inset(22% 0 52% 0); transform: translateX(3px); }
+    20.8%      { clip-path: inset(4% 0 78% 0);  transform: translateX(5px); }
+    21.2%      { clip-path: inset(100% 0 0 0);  transform: translateX(0); }
+
+    /* Pattern B */
+    53.2%      { clip-path: inset(100% 0 0 0);  transform: translateX(0); }
+    53.4%      { clip-path: inset(44% 0 6% 0);  transform: translateX(8px); }
+    53.8%      { clip-path: inset(14% 0 52% 0); transform: translateX(4px); }
+    54.2%      { clip-path: inset(72% 0 2% 0);  transform: translateX(7px); }
+    54.6%      { clip-path: inset(100% 0 0 0);  transform: translateX(0); }
+
+    /* Pattern C */
+    84.9%      { clip-path: inset(100% 0 0 0);  transform: translateX(0); }
+    85%        { clip-path: inset(65% 0 14% 0); transform: translateX(3px); }
+    85.3%      { clip-path: inset(100% 0 0 0);  transform: translateX(0); }
+    85.6%      { clip-path: inset(28% 0 50% 0); transform: translateX(6px); }
+    85.9%      { clip-path: inset(100% 0 0 0);  transform: translateX(0); }
+    86.2%      { clip-path: inset(48% 0 28% 0); transform: translateX(4px); }
+    86.5%      { clip-path: inset(100% 0 0 0);  transform: translateX(0); }
+    100%       { clip-path: inset(100% 0 0 0);  transform: translateX(0); }
+}
+
 /* Hero subtitle blinking cursor */
 
 /* ===== Timeline: Desktop two-column alternating ===== */
