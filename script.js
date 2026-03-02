@@ -909,7 +909,7 @@ function _tickParticles() {
 }
 
 function startParticles() {
-    if (prefersReducedMotion || _pCanvas) return;
+    if (prefersReducedMotion || _pCanvas || window.innerWidth < 768) return;
     const hero = document.querySelector('.hero');
     if (!hero) return;
     _pCanvas = document.createElement('canvas');
@@ -938,5 +938,24 @@ function stopParticles() {
 
 window.addEventListener('load', () => { if (currentTheme === 'neon') startParticles(); });
 
+
+// ===== Neon: button ripple =====
+document.addEventListener('click', e => {
+    if (!body.classList.contains('neon-mode')) return;
+    const btn = e.target.closest('.btn');
+    if (!btn) return;
+    const r    = btn.getBoundingClientRect();
+    const size = Math.max(r.width, r.height);
+    const x    = e.clientX - r.left - size / 2;
+    const y    = e.clientY - r.top  - size / 2;
+    const rpl  = document.createElement('span');
+    rpl.className = 'neon-ripple';
+    Object.assign(rpl.style, {
+        width: size + 'px', height: size + 'px',
+        left: x + 'px',    top:  y + 'px',
+    });
+    btn.appendChild(rpl);
+    rpl.addEventListener('animationend', () => rpl.remove());
+});
 
 console.log('Portfolio loaded successfully! 🚀');
