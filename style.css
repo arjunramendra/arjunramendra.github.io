@@ -622,7 +622,8 @@ section {
                 filter var(--motion-medium) var(--ease-smooth);
 }
 
-body.dark-mode .company-logo {
+body.dark-mode .company-logo,
+body.neon-mode .company-logo {
     filter: grayscale(0.3) brightness(1.6);
 }
 
@@ -630,7 +631,8 @@ body.dark-mode .company-logo {
     filter: grayscale(0.3) brightness(1.5);
 }
 
-body.dark-mode .company-logo--straumann {
+body.dark-mode .company-logo--straumann,
+body.neon-mode .company-logo--straumann {
     filter: grayscale(0.3) brightness(2.4);
 }
 
@@ -640,7 +642,8 @@ body.dark-mode .company-logo--straumann {
         filter: grayscale(0);
     }
 
-    body.dark-mode .company-logo:hover {
+    body.dark-mode .company-logo:hover,
+    body.neon-mode .company-logo:hover {
         filter: grayscale(0) brightness(1.2);
     }
 }
