@@ -1264,7 +1264,8 @@ body.neon-mode .hero-title {
 
 /* Cards — pulsing border glow between purple and cyan */
 body.neon-mode .timeline-content,
-body.neon-mode .project-card {
+body.neon-mode .project-card,
+body.neon-mode .logo-popup {
     border-color: rgba(139, 0, 255, 0.3);
     animation: neon-card-pulse 4s ease-in-out infinite;
 }
