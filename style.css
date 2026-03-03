@@ -1643,29 +1643,37 @@ body.neon-mode .glitch::after {
     }
 
     .timeline {
-        display: block;
-        padding-left: 1.5rem;
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 1rem;
+        padding: 0.25rem 1rem 1rem;
+        padding-left: 1rem;
+        scrollbar-width: none;
     }
 
-    .timeline::before { left: 0; }
+    .timeline::-webkit-scrollbar { display: none; }
+
+    .timeline::before { display: none; }
 
     .timeline-item,
     .timeline-item:nth-child(odd),
     .timeline-item:nth-child(even) {
-        padding: 0 0 2rem 1.25rem;
+        flex: 0 0 82vw;
+        max-width: 360px;
+        scroll-snap-align: start;
+        padding: 0;
     }
 
     .timeline-item:last-child { padding-bottom: 0; }
 
-    .timeline-item:nth-child(odd) .timeline-marker,
-    .timeline-item:nth-child(even) .timeline-marker {
-        left: -0.4rem;
-        right: auto;
-        top: 6px;
-    }
+    .timeline-marker { display: none; }
 
     .timeline-content {
         padding: 1rem 1.1rem;
+        height: 100%;
     }
 
     .timeline-header {
