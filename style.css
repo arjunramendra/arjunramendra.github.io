@@ -1322,6 +1322,36 @@ body.neon-mode .contact-btn:hover {
     box-shadow: 0 0 20px rgba(0, 229, 255, 0.25);
 }
 
+/* Contact icon pulse — each icon a different neon colour, staggered */
+body.neon-mode .contact-btn:nth-child(1) .icon {
+    animation: neon-icon-cyan 3s ease-in-out infinite;
+}
+
+body.neon-mode .contact-btn:nth-child(2) .icon {
+    animation: neon-icon-magenta 3s ease-in-out infinite;
+    animation-delay: 1s;
+}
+
+body.neon-mode .contact-btn:nth-child(3) .icon {
+    animation: neon-icon-purple 3s ease-in-out infinite;
+    animation-delay: 2s;
+}
+
+@keyframes neon-icon-cyan {
+    0%, 100% { filter: drop-shadow(0 0 3px rgba(0, 229, 255, 0.3)); }
+    50%       { filter: drop-shadow(0 0 10px rgba(0, 229, 255, 0.95)); }
+}
+
+@keyframes neon-icon-magenta {
+    0%, 100% { filter: drop-shadow(0 0 3px rgba(255, 45, 155, 0.3)); }
+    50%       { filter: drop-shadow(0 0 10px rgba(255, 45, 155, 0.95)); }
+}
+
+@keyframes neon-icon-purple {
+    0%, 100% { filter: drop-shadow(0 0 3px rgba(139, 0, 255, 0.3)); }
+    50%       { filter: drop-shadow(0 0 10px rgba(139, 0, 255, 0.95)); }
+}
+
 /* Active nav links get a faint glow */
 body.neon-mode .nav-link.active,
 body.neon-mode .mobile-nav-link.active {
