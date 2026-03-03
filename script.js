@@ -958,4 +958,43 @@ document.addEventListener('click', e => {
     rpl.addEventListener('animationend', () => rpl.remove());
 });
 
+// ===== Timeline: mobile scroll dots =====
+function initTimelineDots() {
+    if (window.innerWidth > 768) return;
+    const timeline = document.querySelector('.timeline');
+    if (!timeline || document.querySelector('.timeline-dots')) return;
+
+    const items = timeline.querySelectorAll('.timeline-item');
+    if (items.length < 2) return;
+
+    const dotsWrap = document.createElement('div');
+    dotsWrap.className = 'timeline-dots';
+    items.forEach((_, i) => {
+        const dot = document.createElement('div');
+        dot.className = 'timeline-dot' + (i === 0 ? ' active' : '');
+        dotsWrap.appendChild(dot);
+    });
+    timeline.parentNode.insertBefore(dotsWrap, timeline.nextSibling);
+
+    const dots = dotsWrap.querySelectorAll('.timeline-dot');
+
+    // Swipe chevron cue
+    const cue = document.createElement('div');
+    cue.className = 'timeline-swipe-cue';
+    cue.innerHTML = '&#8250;&#8250;';
+    timeline.parentNode.style.position = 'relative';
+    timeline.parentNode.insertBefore(cue, dotsWrap);
+
+    timeline.addEventListener('scroll', () => {
+        const itemWidth = items[0].offsetWidth + parseFloat(getComputedStyle(timeline).gap);
+        const index = Math.round(timeline.scrollLeft / itemWidth);
+        dots.forEach((d, i) => d.classList.toggle('active', i === index));
+        const atEnd = timeline.scrollLeft + timeline.clientWidth >= timeline.scrollWidth - 20;
+        timeline.classList.toggle('at-end', atEnd);
+        cue.classList.toggle('hidden', index !== 0);
+    }, { passive: true });
+}
+
+window.addEventListener('load', initTimelineDots);
+
 console.log('Portfolio loaded successfully! 🚀');
