@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Arjun Ramendra — Senior Software Engineer with 8+ years in Java, Spring Boot, Microservices, Azure Cloud & DevOps across Healthcare, IoT and Banking domains." />
+  <meta name="keywords" content="Arjun Ramendra, Backend Engineer, Java, Spring Boot, Azure, DevOps, Microservices, RabbitMQ, Straumann, Philips" />
+  <meta name="author" content="Arjun Ramendra" />
+  <title>Arjun Ramendra — Senior Software Engineer</title>
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Arjun Ramendra — Senior Software Engineer" />
+  <meta property="og:description" content="8+ years building scalable microservices across Healthcare, IoT & Banking with Java, Spring Boot & Azure Cloud." />
+  <meta property="og:url" content="https://arjunramendra.github.io" />
+  <meta property="og:image" content="https://arjunramendra.github.io/assets/images/profile-photo.JPG" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://arjunramendra.github.io/assets/images/profile-photo.JPG" />
+  <meta name="twitter:title" content="Arjun Ramendra — Senior Software Engineer" />
+  <meta name="twitter:description" content="8+ years building scalable microservices across Healthcare, IoT & Banking with Java, Spring Boot & Azure Cloud." />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23060912'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='700' font-size='13' fill='%2338bdf8'>AR</text></svg>" />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://arjunramendra.github.io" />
+
+  <!-- Schema.org structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Arjun Ramendra",
+    "jobTitle": "Senior Software Engineer",
+    "url": "https://arjunramendra.github.io",
+    "email": "ramendraarjun@gmail.com",
+    "sameAs": [
+      "https://linkedin.com/in/arjunramendra",
+      "https://github.com/arjunramendra"
+    ],
+    "knowsAbout": ["Java", "Spring Boot", "Microservices", "Azure Cloud", "DevOps", "RabbitMQ", "Kubernetes"],
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Bangalore",
+      "addressCountry": "IN"
+    }
+  }
+  </script>
+
+  <!-- Google Fonts: Space Grotesk + JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Skip to main content (keyboard / screen reader) -->
+  <a href="#about" class="skip-link">Skip to main content</a>
+
+  <!-- ═══════════════════════ SCROLL PROGRESS ══════════════════ -->
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════ CURSOR ════════════════════════════ -->
+  <div class="cursor-dot"  id="cursorDot"  aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════ BACKGROUND GRID ═══════════════════ -->
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-orbs" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+  </div>
+
+  <!-- ═══════════════════════ NAV ═══════════════════════════════ -->
+  <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-container">
+      <a href="#home" class="nav-logo" id="nav-logo" aria-label="Home">
+        <span class="logo-bracket">&lt;</span>
+        <span class="logo-text">AR</span>
+        <span class="logo-bracket">/&gt;</span>
+      </a>
+      <ul class="nav-links" role="list">
+        <li><a href="#about" class="nav-link" id="nav-about">About</a></li>
+        <li><a href="#skills" class="nav-link" id="nav-skills">Skills</a></li>
+        <li><a href="#experience" class="nav-link" id="nav-experience">Experience</a></li>
+        <li><a href="#projects" class="nav-link" id="nav-projects">Projects</a></li>
+        <li><a href="#contact" class="nav-link" id="nav-contact">Contact</a></li>
+      </ul>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark mode">
+        <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="display:none">
+          <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <a href="https://arjunramendra.github.io/resume/resume.pdf" target="_blank" rel="noopener noreferrer" class="nav-cv" id="nav-cv-btn" aria-label="Download CV">CV</a>
+      <a href="#contact" class="nav-cta" id="nav-cta-btn">Let's Talk</a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle mobile menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Mobile navigation">
+      <a href="#about" class="mobile-link" id="mob-about">About</a>
+      <a href="#skills" class="mobile-link" id="mob-skills">Skills</a>
+      <a href="#experience" class="mobile-link" id="mob-experience">Experience</a>
+      <a href="#projects" class="mobile-link" id="mob-projects">Projects</a>
+      <a href="#contact" class="mobile-link" id="mob-contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════ HERO ══════════════════════════════ -->
+  <section class="hero" id="home" aria-label="Hero section">
+    <div class="hero-content">
+      <div class="hero-badge reveal" data-delay="0">
+        <span class="badge-dot"></span>
+        <span>Available for new opportunities</span>
+      </div>
+
+      <h1 class="hero-title reveal" data-delay="100">
+        <span class="title-line">Arjun Ramendra</span>
+        <span class="title-line gradient-text">Senior Engineer</span>
+      </h1>
+
+      <p class="hero-subtitle reveal" data-delay="200">
+        I build the <span class="highlight">backend systems</span> teams depend on —
+        reliable, fast, and designed to scale. 8 years shipping
+        <span class="highlight">microservices</span> across Healthcare, IoT &amp; Banking
+        on <span class="highlight">Azure Cloud</span>.
+      </p>
+
+      <div class="hero-stats reveal" data-delay="300">
+        <div class="stat">
+          <span class="stat-num" data-target="8">0</span>
+          <span class="stat-suffix">+</span>
+          <span class="stat-label">Years Exp.</span>
+        </div>
+        <div class="stat-divider" aria-hidden="true"></div>
+        <div class="stat">
+          <span class="stat-num" data-target="4">0</span>
+          <span class="stat-suffix"></span>
+          <span class="stat-label">Companies</span>
+        </div>
+        <div class="stat-divider" aria-hidden="true"></div>
+        <div class="stat">
+          <span class="stat-num" data-target="3">0</span>
+          <span class="stat-suffix"></span>
+          <span class="stat-label">Domains</span>
+        </div>
+        <div class="stat-divider" aria-hidden="true"></div>
+        <div class="stat">
+          <span class="stat-num" data-target="99">0</span>
+          <span class="stat-suffix">.9%</span>
+          <span class="stat-label">Uptime (Philips)</span>
+        </div>
+      </div>
+
+      <div class="hero-actions reveal" data-delay="400">
+        <a href="#projects" class="btn btn-primary" id="hero-view-work">
+          <span>View My Work</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <a href="#contact" class="btn btn-ghost" id="hero-contact">
+          <span>Get In Touch</span>
+        </a>
+        <a href="https://arjunramendra.github.io/resume/resume.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-ghost" id="hero-download-cv">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 3v13M7 11l5 5 5-5M5 21h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>Download CV</span>
+        </a>
+      </div>
+
+      <div class="hero-tech-stack reveal" data-delay="500">
+        <span class="tech-label">Core Stack:</span>
+        <div class="tech-pills">
+          <span class="tech-pill">Java</span>
+          <span class="tech-pill">Spring Boot</span>
+          <span class="tech-pill">Microservices</span>
+          <span class="tech-pill">Cloud-Native</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual reveal" data-delay="200" aria-hidden="true">
+      <div class="code-window">
+        <div class="code-window-header">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <span class="code-window-title">ApiGateway.java</span>
+        </div>
+        <div class="code-window-body">
+          <pre class="code-snippet"><code><span class="code-annotation">@RestController</span>
+<span class="code-annotation">@RequestMapping</span>(<span class="code-string">"/api/v1"</span>)
+<span class="code-annotation">@RequiredArgsConstructor</span>
+<span class="code-keyword">public class</span> <span class="code-class">ApiGateway</span> {
+
+  <span class="code-keyword">private final</span> <span class="code-class">ServiceOrchestrator</span> orchestrator;
+
+  <span class="code-annotation">@GetMapping</span>(<span class="code-string">"/health"</span>)
+  <span class="code-keyword">public</span> <span class="code-class">ResponseEntity</span>&lt;<span class="code-class">Status</span>&gt; health() {
+    <span class="code-keyword">return</span> <span class="code-class">ResponseEntity</span>
+      .ok(orchestrator
+        .checkAll()
+        .withLatency(<span class="code-number">42</span>ms));
+  }
+
+  <span class="code-annotation">@PostMapping</span>(<span class="code-string">"/process"</span>)
+  <span class="code-annotation">@RateLimited</span>(rps = <span class="code-number">10_000</span>)
+  <span class="code-keyword">public</span> <span class="code-class">Flux</span>&lt;<span class="code-class">Result</span>&gt; process(
+    <span class="code-annotation">@RequestBody</span> <span class="code-class">Payload</span> payload) {
+    <span class="code-keyword">return</span> orchestrator
+      .processAsync(payload);
+  }
+}</code></pre>
+        </div>
+        <div class="code-terminal">
+          <span class="terminal-prompt">$</span>
+          <span class="terminal-text" id="terminalText" aria-live="polite" aria-atomic="true"></span>
+          <span class="terminal-cursor" aria-hidden="true">▋</span>
+        </div>
+      </div>
+      <div class="metrics-panel">
+        <div class="metric-card">
+          <span class="metric-label">Avg Response</span>
+          <span class="metric-value green">42ms</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">Uptime</span>
+          <span class="metric-value blue">99.97%</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">Req/sec</span>
+          <span class="metric-value orange">10k+</span>
+        </div>
+      </div>
+    </div>
+
+    <a href="#about" class="scroll-indicator" id="scroll-down" aria-label="Scroll to about section">
+      <div class="scroll-mouse">
+        <div class="scroll-wheel"></div>
+      </div>
+      <span>Scroll</span>
+    </a>
+  </section>
+
+  <!-- ═══════════════════════ COMPANIES ════════════════════════ -->
+  <section class="companies" aria-label="Companies I have worked with">
+    <div class="companies-inner">
+      <span class="companies-label">Experience at</span>
+      <div class="companies-logos">
+        <div class="company-item company-item--straumann" style="--i:0">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/9/9c/Straumann_Group_-_Corporate_logo.svg"
+               alt="Straumann Group" loading="lazy"
+               onerror="this.parentElement.innerHTML='<span class=\'company-item--text\'>Straumann</span>'">
+        </div>
+        <span class="company-dot" aria-hidden="true"></span>
+        <div class="company-item company-item--philips" style="--i:1">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/5/52/Philips_logo_new.svg"
+               alt="Philips" loading="lazy"
+               onerror="this.parentElement.innerHTML='<span class=\'company-item--text\'>Philips</span>'">
+        </div>
+        <span class="company-dot" aria-hidden="true"></span>
+        <div class="company-item company-item--text" style="--i:2">MCCI</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ ABOUT ═════════════════════════════ -->
+  <section class="section about" id="about" aria-label="About section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">About</span>
+        <h2 class="section-title">The Engineer Behind <span class="gradient-text">The Code</span></h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-photo reveal" data-delay="0">
+          <div class="photo-frame">
+            <img src="assets/images/profile-photo.JPG" alt="Arjun Ramendra — Senior Software Engineer" class="profile-photo" loading="lazy" width="320" height="320"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+          <div class="photo-initials" aria-hidden="true" style="display:none">AR</div>
+          </div>
+        </div>
+        <div class="about-text reveal" data-delay="100">
+          <p class="about-lead">
+            Results-driven Senior Software Engineer with <strong>8 years of experience</strong>
+            across Healthcare, Serviceability, IoT, and Banking domains.
+          </p>
+          <p>
+            Specialized in <em>Java, Spring Boot, and Microservices</em> with hands-on expertise
+            in DevOps, CI/CD, and Azure Cloud. I design scalable distributed systems applying
+            SOLID principles and building clean, maintainable code.
+          </p>
+          <p>
+            Currently at <strong>Straumann Group</strong>, leading platform governance and
+            framework development — running POCs on Temporal IO, DAPR, and Azure Service Bus
+            while championing clean code and DevOps best practices across teams.
+          </p>
+          <div class="about-values">
+            <div class="value-item">
+              <svg class="value-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M9 12l2 2 4-4M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+              <span>Reliability first</span>
+            </div>
+            <div class="value-item">
+              <svg class="value-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+              <span>Performance obsessed</span>
+            </div>
+            <div class="value-item">
+              <svg class="value-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+              <span>Clean architecture</span>
+            </div>
+            <div class="value-item">
+              <svg class="value-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+              <span>Team multiplier</span>
+            </div>
+          </div>
+        </div>
+        <div class="about-cards reveal" data-delay="200">
+          <div class="glass-card about-card">
+            <div class="about-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3>Microservices Specialist</h3>
+            <p>Designed and enhanced multiple microservices and internal libraries at Straumann — enabling scalable, consistent integration across all AXS products.</p>
+          </div>
+          <div class="glass-card about-card">
+            <div class="about-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3>Azure &amp; Cloud DevOps</h3>
+            <p>Hands-on with Azure DevOps, AKS, Service Bus, PCF and CI/CD pipelines — championing deployment stability and delivery speed.</p>
+          </div>
+          <div class="glass-card about-card">
+            <div class="about-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3>Multi-Domain Experience</h3>
+            <p>Delivered production systems in Healthcare (Philips), Dental-tech (Straumann), IoT (MCCI) and Banking (Hitachi Omron) domains.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ SKILLS ════════════════════════════ -->
+  <section class="section skills" id="skills" aria-label="Skills section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Skills</span>
+        <h2 class="section-title">Technical <span class="gradient-text">Arsenal</span></h2>
+        <p class="section-desc">8 years of production-hardened expertise across the backend stack</p>
+      </div>
+
+      <div class="skills-grid">
+        <!-- Languages & Frameworks -->
+        <div class="skill-category glass-card reveal" data-delay="0">
+          <div class="skill-cat-header">
+            <div class="skill-cat-icon">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3>Languages &amp; Frameworks</h3>
+          </div>
+          <div class="skill-chips">
+            <span class="chip">Java</span>
+            <span class="chip">Spring Boot</span>
+            <span class="chip">Hibernate</span>
+            <span class="chip">JPA</span>
+            <span class="chip">REST APIs</span>
+            <span class="chip">WebSockets</span>
+            <span class="chip">Maven</span>
+          </div>
+        </div>
+
+        <!-- Architecture & Design -->
+        <div class="skill-category glass-card reveal" data-delay="100">
+          <div class="skill-cat-header">
+            <div class="skill-cat-icon">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1V5zm10 0a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1v-4zm10 0a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3>Architecture &amp; Design</h3>
+          </div>
+          <div class="skill-chips">
+            <span class="chip">Microservices</span>
+            <span class="chip">Event-Driven Design</span>
+            <span class="chip">Domain-Driven Design</span>
+            <span class="chip">Distributed Systems</span>
+            <span class="chip">SaaS</span>
+            <span class="chip">API Gateway</span>
+            <span class="chip">SOLID Principles</span>
+            <span class="chip">Rate Limiting</span>
+            <span class="chip">Webhooks</span>
+          </div>
+        </div>
+
+        <!-- Azure & Cloud -->
+        <div class="skill-category glass-card reveal" data-delay="200">
+          <div class="skill-cat-header">
+            <div class="skill-cat-icon">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3>Azure &amp; Cloud</h3>
+          </div>
+          <div class="skill-chips">
+            <span class="chip">Azure AKS</span>
+            <span class="chip">Azure Service Bus</span>
+            <span class="chip">Azure Functions</span>
+            <span class="chip">CosmosDB / SQL</span>
+            <span class="chip">Azure DevOps</span>
+            <span class="chip">Entra ID</span>
+            <span class="chip">Kong Gateway</span>
+            <span class="chip">PCF</span>
+            <span class="chip">Azure Blob Storage</span>
+          </div>
+        </div>
+
+        <!-- DevOps & CI/CD -->
+        <div class="skill-category glass-card reveal" data-delay="0">
+          <div class="skill-cat-header">
+            <div class="skill-cat-icon">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3>DevOps &amp; CI/CD</h3>
+          </div>
+          <div class="skill-chips">
+            <span class="chip">Docker</span>
+            <span class="chip">Kubernetes</span>
+            <span class="chip">Helm</span>
+            <span class="chip">GitHub Actions</span>
+            <span class="chip">Azure Pipelines</span>
+            <span class="chip">CI/CD</span>
+            <span class="chip">DAPR</span>
+            <span class="chip">Temporal IO</span>
+            <span class="chip">Flyway / Liquibase</span>
+          </div>
+        </div>
+
+        <!-- Data & Messaging -->
+        <div class="skill-category glass-card reveal" data-delay="100">
+          <div class="skill-cat-header">
+            <div class="skill-cat-icon">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 7v10c0 2 1.5 3 4 3h8c2.5 0 4-1 4-3V7c0-2-1.5-3-4-3H8C5.5 4 4 5 4 7zm0 5h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3>Data &amp; Messaging</h3>
+          </div>
+          <div class="skill-chips">
+            <span class="chip">MySQL</span>
+            <span class="chip">PostgreSQL</span>
+            <span class="chip">Redis</span>
+            <span class="chip">RabbitMQ</span>
+            <span class="chip">Azure Service Bus</span>
+            <span class="chip">MQTT</span>
+            <span class="chip">Dead-Letter Queues</span>
+          </div>
+        </div>
+
+        <!-- Testing & Tools -->
+        <div class="skill-category glass-card reveal" data-delay="200">
+          <div class="skill-cat-header">
+            <div class="skill-cat-icon">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3>Testing &amp; Tools</h3>
+          </div>
+          <div class="skill-chips">
+            <span class="chip">JUnit</span>
+            <span class="chip">Mockito</span>
+            <span class="chip">Postman</span>
+            <span class="chip">OpenAPI Spec</span>
+            <span class="chip">IntelliJ IDEA</span>
+            <span class="chip">Git</span>
+            <span class="chip">Multithreading</span>
+            <span class="chip">Concurrency</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ EXPERIENCE ════════════════════════ -->
+  <section class="section experience" id="experience" aria-label="Experience section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Experience</span>
+        <h2 class="section-title">Career <span class="gradient-text">Timeline</span></h2>
+        <p class="section-desc">8 years of shipping systems that matter</p>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-line" aria-hidden="true"></div>
+
+        <!-- Job 1: Straumann -->
+        <div class="timeline-item reveal" data-delay="0">
+          <div class="glass-card timeline-card">
+            <div class="timeline-card-header">
+              <div class="job-meta">
+                <span class="job-period">Aug 2023 — Present</span>
+              </div>
+              <span class="job-company">Straumann Group · Bangalore</span>
+              <h3 class="job-title">Senior Software Engineer</h3>
+            </div>
+            <p class="job-highlights">Lead the design and evolution of platform governance microservices and shared libraries powering the Straumann AXS product suite. Drive cross-team integrations, evaluate next-generation tooling (Temporal IO, DAPR, Azure Service Bus), and establish engineering standards that improve reliability and delivery across the org.</p>
+            <div class="job-tech">
+              <span>Java</span><span>Spring Boot</span><span>RabbitMQ</span><span>Azure DevOps</span><span>DAPR</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Job 2: Philips -->
+        <div class="timeline-item reveal" data-delay="100">
+          <div class="glass-card timeline-card">
+            <div class="timeline-card-header">
+              <div class="job-meta">
+                <span class="job-period">Aug 2019 — Aug 2023</span>
+              </div>
+              <span class="job-company">Philips India (PIC) · Bangalore</span>
+              <h3 class="job-title">Software Engineer II, R&amp;D</h3>
+            </div>
+            <p class="job-highlights">Built backend services for remote monitoring and over-the-air firmware updates of medical devices where reliability is non-negotiable. Designed resilient RabbitMQ pipelines with dead-letter queues and recovery patterns, and drove containerisation and MQTT-based IoT integrations.</p>
+            <div class="job-tech">
+              <span>Java</span><span>Spring Boot</span><span>RabbitMQ</span><span>MQTT</span><span>Docker</span><span>PCF</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Job 3: MCCI -->
+        <div class="timeline-item reveal" data-delay="200">
+          <div class="glass-card timeline-card">
+            <div class="timeline-card-header">
+              <div class="job-meta">
+                <span class="job-period">Dec 2017 — Jul 2018</span>
+              </div>
+              <span class="job-company">MCCI Corporation</span>
+              <h3 class="job-title">Software Engineer — IoT</h3>
+            </div>
+            <p class="job-highlights">Developed IoT solutions for real-time water management, connecting RC601 pressure sensors to Catena 4450 boards via I²C and Modbus RTU. Integrated Modbus 485 flow sensors for Mumbai city-wide water distribution. Represented MCCI at the Internet of Things Expo, Delhi 2018.</p>
+            <div class="job-tech">
+              <span>IoT</span><span>I2C</span><span>Modbus RTU</span><span>MQTT</span><span>The Things Network</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Job 4: Nexustree -->
+        <div class="timeline-item reveal" data-delay="300">
+          <div class="glass-card timeline-card">
+            <div class="timeline-card-header">
+              <div class="job-meta">
+                <span class="job-period">Dec 2016 — Dec 2017</span>
+              </div>
+              <span class="job-company">Nexustree Consultancy Services</span>
+              <h3 class="job-title">Software Developer</h3>
+            </div>
+            <p class="job-highlights">Built a C++ ATM log analysis tool for Hitachi Omron Terminal Solutions that cut manual review time by ~70% through automated parsing and pattern detection — delivered end-to-end across a V-Model SDLC.</p>
+            <div class="job-tech">
+              <span>C++</span><span>V-Model SDLC</span><span>ATM Systems</span><span>Log Analysis</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ PROJECTS ══════════════════════════ -->
+  <section class="section projects" id="projects" aria-label="Projects section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Projects</span>
+        <h2 class="section-title">Featured <span class="gradient-text">Work</span></h2>
+        <p class="section-desc">Systems built with care, shipped with confidence</p>
+      </div>
+
+      <div class="projects-grid">
+        <!-- Project 1 (Featured) -->
+        <article class="project-card project-card--featured glass-card reveal" data-delay="0">
+          <div class="project-card-header">
+            <div class="project-icon">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="project-links">
+              <span class="project-link-private" title="Private / Enterprise repository">
+                <svg viewBox="0 0 24 24" fill="none" width="16" height="16" aria-hidden="true">
+                  <rect x="3" y="11" width="18" height="11" rx="2" stroke="currentColor" stroke-width="1.5"/>
+                  <path d="M7 11V7a5 5 0 0110 0v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                <span>Private</span>
+              </span>
+              <a href="#" class="project-link" id="proj1-live" aria-label="View live project" style="display:none">
+                <svg viewBox="0 0 24 24" fill="none" width="18" height="18" aria-hidden="true">
+                  <path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+          <h3 class="project-title">Remote Software Management Platform — Philips</h3>
+          <p class="project-desc">
+            Microservices platform for remote monitoring and firmware updates of medical devices.
+            Implemented RabbitMQ messaging workflows with dead-letter queues, schedulers and
+            automated recovery patterns — running in production for 4+ years across global healthcare.
+          </p>
+          <div class="project-metrics">
+            <div class="proj-metric"><span class="pm-val">4yr+</span><span class="pm-lbl">Production</span></div>
+            <div class="proj-metric"><span class="pm-val">99.9%</span><span class="pm-lbl">Uptime</span></div>
+            <div class="proj-metric"><span class="pm-val">10k+</span><span class="pm-lbl">Msgs/day</span></div>
+          </div>
+          <div class="project-tags">
+            <span>Java</span><span>Spring Boot</span><span>RabbitMQ</span><span>MQTT</span><span>Docker</span><span>PCF</span>
+          </div>
+        </article>
+
+        <!-- Project 2 (Featured) -->
+        <article class="project-card project-card--featured glass-card reveal" data-delay="100">
+          <div class="project-card-header">
+            <div class="project-icon">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="project-links"></div>
+          </div>
+          <h3 class="project-title">AXS Platform Governance — Straumann</h3>
+          <p class="project-desc">
+            Platform governance framework powering Straumann's dental SaaS ecosystem.
+            Built shared internal libraries and ran POCs on Temporal IO, DAPR and Azure Service Bus
+            Dead Lettering — improving consistency and delivery speed across all AXS products.
+          </p>
+          <div class="project-metrics">
+            <div class="proj-metric"><span class="pm-val">5+</span><span class="pm-lbl">Products</span></div>
+            <div class="proj-metric"><span class="pm-val">40%</span><span class="pm-lbl">Faster Deploy</span></div>
+            <div class="proj-metric"><span class="pm-val">Azure</span><span class="pm-lbl">Cloud-native</span></div>
+          </div>
+          <div class="project-tags">
+            <span>Java</span><span>Spring Boot</span><span>DAPR</span><span>Temporal IO</span><span>Azure Service Bus</span>
+          </div>
+        </article>
+
+        <!-- Project 3: Webhook Delivery System (Featured) -->
+        <article class="project-card project-card--featured glass-card reveal" data-delay="200">
+          <div class="project-card-header">
+            <div class="project-icon">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3M8 12h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="project-links">
+              <span class="project-link-private" title="Private / Enterprise repository">
+                <svg viewBox="0 0 24 24" fill="none" width="16" height="16" aria-hidden="true">
+                  <rect x="3" y="11" width="18" height="11" rx="2" stroke="currentColor" stroke-width="1.5"/>
+                  <path d="M7 11V7a5 5 0 0110 0v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                <span>Private</span>
+              </span>
+            </div>
+          </div>
+          <h3 class="project-title">Webhook Delivery System — Straumann</h3>
+          <p class="project-desc">
+            Enterprise webhook platform receiving events from organisation-wide systems via Azure Service Bus
+            and dispatching HMAC-signed payloads to external integrators. Auto-scales with KEDA based on
+            queue depth, with retry policies and dead-letter handling for guaranteed delivery.
+          </p>
+          <div class="project-metrics">
+            <div class="proj-metric"><span class="pm-val">HMAC</span><span class="pm-lbl">Signed</span></div>
+            <div class="proj-metric"><span class="pm-val">KEDA</span><span class="pm-lbl">Auto-scale</span></div>
+            <div class="proj-metric"><span class="pm-val">99.9%</span><span class="pm-lbl">Delivery</span></div>
+          </div>
+          <div class="project-tags">
+            <span>Java</span><span>Spring Boot</span><span>Azure Service Bus</span><span>KEDA</span><span>HMAC</span><span>AKS</span>
+          </div>
+        </article>
+
+        <!-- Project 4: API Gateway (Featured) -->
+        <article class="project-card project-card--featured glass-card reveal" data-delay="300">
+          <div class="project-card-header">
+            <div class="project-icon">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="project-links">
+              <span class="project-link-private" title="Private / Enterprise repository">
+                <svg viewBox="0 0 24 24" fill="none" width="16" height="16" aria-hidden="true">
+                  <rect x="3" y="11" width="18" height="11" rx="2" stroke="currentColor" stroke-width="1.5"/>
+                  <path d="M7 11V7a5 5 0 0110 0v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                <span>Private</span>
+              </span>
+            </div>
+          </div>
+          <h3 class="project-title">API Gateway — Straumann</h3>
+          <p class="project-desc">
+            Centralised API gateway built on Spring Cloud Gateway with Redis-backed response caching
+            and sliding-window rate limiting. Handles authentication, request routing, and traffic shaping
+            for all downstream microservices across the AXS platform.
+          </p>
+          <div class="project-metrics">
+            <div class="proj-metric"><span class="pm-val">Redis</span><span class="pm-lbl">Cache Layer</span></div>
+            <div class="proj-metric"><span class="pm-val">RL</span><span class="pm-lbl">Rate Limited</span></div>
+            <div class="proj-metric"><span class="pm-val">&lt;50ms</span><span class="pm-lbl">p95 Latency</span></div>
+          </div>
+          <div class="project-tags">
+            <span>Java</span><span>Spring Cloud Gateway</span><span>Redis</span><span>Rate Limiting</span><span>AKS</span>
+          </div>
+        </article>
+
+        <!-- Project 5: Multi-Region OTA Sync (Featured) -->
+        <article class="project-card project-card--featured glass-card reveal" data-delay="400">
+          <div class="project-card-header">
+            <div class="project-icon">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+            </div>
+            <div class="project-links">
+              <span class="project-link-private" title="Private / Enterprise repository">
+                <svg viewBox="0 0 24 24" fill="none" width="16" height="16" aria-hidden="true">
+                  <rect x="3" y="11" width="18" height="11" rx="2" stroke="currentColor" stroke-width="1.5"/>
+                  <path d="M7 11V7a5 5 0 0110 0v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                <span>Private</span>
+              </span>
+            </div>
+          </div>
+          <h3 class="project-title">Multi-Region OTA Data Sync — Philips</h3>
+          <p class="project-desc">
+            Cross-region synchronisation of over-the-air firmware update data across US, EU, and Asia
+            deployments. Uses RabbitMQ for event-driven replication with dead-letter queues for fault
+            tolerance — ensuring consistent device state across all regions.
+          </p>
+          <div class="project-metrics">
+            <div class="proj-metric"><span class="pm-val">3</span><span class="pm-lbl">Regions</span></div>
+            <div class="proj-metric"><span class="pm-val">RMQ</span><span class="pm-lbl">Eventing</span></div>
+            <div class="proj-metric"><span class="pm-val">DLQ</span><span class="pm-lbl">Fault Tolerant</span></div>
+          </div>
+          <div class="project-tags">
+            <span>Java</span><span>Spring Boot</span><span>RabbitMQ</span><span>DLQ</span><span>Multi-Region</span><span>PCF</span>
+          </div>
+        </article>
+
+        <!-- Project 6: Java Practice -->
+        <article class="project-card glass-card reveal" data-delay="500">
+          <div class="project-card-header">
+            <div class="project-icon">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/arjunramendra/Java_Practice" target="_blank" rel="noopener noreferrer" class="project-link" aria-label="View on GitHub">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true">
+                  <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+          <h3 class="project-title">Java Practice Repository</h3>
+          <p class="project-desc">
+            A comprehensive collection of Java exercises, algorithms, and best practices.
+            Covers DSA patterns, concurrency primitives, clean code principles, and common interview patterns.
+          </p>
+          <div class="project-metrics">
+            <div class="proj-metric"><span class="pm-val">DSA</span><span class="pm-lbl">Patterns</span></div>
+            <div class="proj-metric"><span class="pm-val">OOP</span><span class="pm-lbl">Principles</span></div>
+            <div class="proj-metric"><span class="pm-val">Open</span><span class="pm-lbl">Source</span></div>
+          </div>
+          <div class="project-tags">
+            <span>Java</span><span>Algorithms</span><span>DSA</span><span>Concurrency</span>
+          </div>
+        </article>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ CONTACT ═══════════════════════════ -->
+  <section class="section contact" id="contact" aria-label="Contact section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Contact</span>
+        <h2 class="section-title">Let's <span class="gradient-text">Connect</span></h2>
+        <p class="section-desc">Open to senior/staff backend roles and interesting architecture conversations</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-info reveal" data-delay="0">
+          <div class="contact-item glass-card">
+            <svg class="contact-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <div>
+              <span class="contact-label">Email</span>
+              <a href="mailto:ramendraarjun@gmail.com" class="contact-value" id="contact-email">ramendraarjun@gmail.com</a>
+            </div>
+          </div>
+          <div class="contact-item glass-card">
+            <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+            <div>
+              <span class="contact-label">LinkedIn</span>
+              <a href="https://linkedin.com/in/arjunramendra" target="_blank" rel="noopener noreferrer" class="contact-value" id="contact-linkedin">linkedin.com/in/arjunramendra</a>
+            </div>
+          </div>
+          <div class="contact-item glass-card">
+            <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+            </svg>
+            <div>
+              <span class="contact-label">GitHub</span>
+              <a href="https://arjunramendra.github.io" target="_blank" rel="noopener noreferrer" class="contact-value" id="contact-github">arjunramendra.github.io</a>
+            </div>
+          </div>
+
+          <div class="availability-badge">
+            <div class="avail-dot"></div>
+            <div>
+              <strong>Typically responds within 24 hours</strong>
+              <p>Senior Backend / Staff Engineer roles • Remote or Hybrid</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- To activate: create a free account at formspree.io, create a form, and replace YOUR_FORM_ID below -->
+        <form class="contact-form glass-card reveal" data-delay="100" id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate data-form-id="YOUR_FORM_ID">
+          <div class="form-group">
+            <label for="form-name" class="form-label">Your Name</label>
+            <input type="text" id="form-name" name="name" class="form-input" placeholder="Jane Smith" required autocomplete="name" aria-describedby="err-name" />
+            <span class="form-error" id="err-name" role="alert" aria-live="polite"></span>
+          </div>
+          <div class="form-group">
+            <label for="form-email" class="form-label">Email Address</label>
+            <input type="email" id="form-email" name="email" class="form-input" placeholder="jane@company.com" required autocomplete="email" aria-describedby="err-email" />
+            <span class="form-error" id="err-email" role="alert" aria-live="polite"></span>
+          </div>
+          <div class="form-group">
+            <label for="form-subject" class="form-label">Subject</label>
+            <select id="form-subject" name="subject" class="form-input form-select" required aria-describedby="err-subject">
+              <option value="" disabled selected>Select a topic...</option>
+              <option value="senior-role">Senior Backend Role</option>
+              <option value="staff-role">Staff / Principal Engineer Role</option>
+              <option value="consulting">Microservices Consulting</option>
+              <option value="contract">Contract / Freelance</option>
+              <option value="collab">Open Source Collaboration</option>
+              <option value="speaking">Speaking / Conference</option>
+              <option value="other">Other</option>
+            </select>
+            <span class="form-error" id="err-subject" role="alert" aria-live="polite"></span>
+          </div>
+          <div class="form-group" id="other-topic-group" style="display:none">
+            <label for="form-other-topic" class="form-label">Please specify</label>
+            <input type="text" id="form-other-topic" name="other_topic" class="form-input" placeholder="Tell me more..." autocomplete="off" />
+          </div>
+          <div class="form-group">
+            <label for="form-message" class="form-label">Message</label>
+            <textarea id="form-message" name="message" class="form-input form-textarea" rows="4" placeholder="Tell me about the role or project..." required aria-describedby="err-message"></textarea>
+            <span class="form-error" id="err-message" role="alert" aria-live="polite"></span>
+          </div>
+          <!-- Honeypot: hidden from humans, catches bots -->
+          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0" />
+
+          <button type="submit" class="btn btn-primary btn-full" id="form-submit">
+            <span>Send Message</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <p class="form-note">I typically respond within 24 hours.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ FOOTER ════════════════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-top">
+        <a href="#home" class="footer-logo" aria-label="Back to top">
+          <span class="logo-bracket">&lt;</span>
+          <span class="logo-text">AR</span>
+          <span class="logo-bracket">/&gt;</span>
+        </a>
+        <p class="footer-tagline">Fuelled by Java ☕ · Shipped with confidence</p>
+        <div class="footer-socials">
+          <a href="https://linkedin.com/in/arjunramendra" target="_blank" rel="noopener noreferrer" class="social-btn" id="footer-linkedin" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+          </a>
+          <a href="https://arjunramendra.github.io" target="_blank" rel="noopener noreferrer" class="social-btn" id="footer-github" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true">
+              <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+            </svg>
+          </a>
+          <a href="mailto:ramendraarjun@gmail.com" class="social-btn" id="footer-email" aria-label="Email">
+            <svg viewBox="0 0 24 24" fill="none" width="20" height="20" aria-hidden="true">
+              <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Arjun Ramendra. All rights reserved.</p>
+        <p class="footer-built">Senior SE · Java &amp; Spring Boot · Bangalore, India</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════ BACK TO TOP ══════════════════════ -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M18 15l-6-6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <script src="script.js"></script>
+</body>
+</html>
