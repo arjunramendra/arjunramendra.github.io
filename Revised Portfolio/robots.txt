@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://arjunramendra.github.io/sitemap.xml
