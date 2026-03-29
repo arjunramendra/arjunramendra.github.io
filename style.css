@@ -1626,9 +1626,6 @@ body.neon-mode .glitch::after {
         display: flex;
     }
 
-    .revamp-label {
-        display: none;
-    }
 }
 
 @media (prefers-reduced-motion: reduce) {
